@@ -19,21 +19,50 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
     });
 }
 
-export async function turnOnTwoFactor(): Promise<void> {
+export async function turnOnTwoFactor(): Promise<any> {
     return await new Promise((resolve, reject) => {
         getCommunity().then(community => {
-            console.log(community);
-            console.log(community.oAuth);
-            community.oAuthToken = store.get("oAuthToken");
             community.enableTwoFactor((err, response) => {
-                console.log(err);
-                if (err) return reject(err);
-                console.log(response);
-                console.log(community.steamID);
+                if (err) {
+                    switch(err.message) {
+                        case Steam2FAErrors.NoMobile:
+                            return resolve({error: Steam2FAErrors.NoMobile});
+                    }
+                    return reject({error: err.message});
+                }
                 
-                require('fs').writeFileSync('auth.json', response);
-                store.set(community.steamID.accountid, response);
-                resolve(null);
+                require('fs').writeFileSync(PATH_TO_ACCOUNT_SECRETS, JSON.stringify(response));
+                store.set(`${community.steamID.accountid}.secrets`, response);
+                store.set(`${community.steamID.accountid}.usingVapor`, false);
+                resolve({});
+            });
+        });
+    });
+}
+
+export async function finaliseTwoFactor(activationCode: string): Promise<any>{
+    return await new Promise((resolve) => {
+        getCommunity().then(community => {
+            const shared_secret = store.get(`${community.steamID.accountid}.secrets.shared_secret`);
+            community.finalizeTwoFactor(shared_secret, activationCode, (err) => {
+                if (err) return resolve({error: err.message});
+
+                store.set(`${community.steamID.accountid}.usingVapor`, true);
+                resolve({});
+            });
+        });
+    });
+}
+
+export async function revokeTwoFactor(): Promise<any>{
+    return await new Promise((resolve) => {
+        getCommunity().then(community => {
+            community.disableTwoFactor(store.get(`${community.steamID.accountid}.secrets.revocation_code`), (err) => {
+                if (err) return resolve({error: err.message});
+                
+                store.set(`${community.steamID.accountid}.usingVapor`, false);
+                store.delete(`${community.steamID.accountid}.secrets`);
+                resolve({});
             });
         });
     });

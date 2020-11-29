@@ -20,3 +20,7 @@ export interface SteamLoginResponse {
     emaildomain?: string;
     captchaurl?: string;
 }
+
+export enum Steam2FAErrors {
+    NoMobile = "Error 2"
+}

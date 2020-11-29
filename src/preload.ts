@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge } from "electron";
 import { getCommunity, getSteamUser } from "./lib/steam/instance";
-import { attemptLogin, turnOnTwoFactor } from "./lib/steam/authenticate";
+import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 
 contextBridge.exposeInMainWorld("electron", {
@@ -21,7 +21,13 @@ contextBridge.exposeInMainWorld("electron", {
     authenticate: {
         setupDesktopAuth: function() {
             return turnOnTwoFactor();
-        }  
+        },
+        finishDesktopAuth: function(activationCode: string) {
+            return finaliseTwoFactor(activationCode);
+        },
+        revokeDesktopAuth: function() {
+            return revokeTwoFactor();
+        }
     },
     window: {
         close: function() {
