@@ -1,6 +1,7 @@
 import LoginScreen from "./components/LoginScreen";
 
 import React, { useEffect, useState } from "react";
+import BaseScreen from "./components/BaseScreen";
 
 export default function Index() {
     const [user, setUser] = useState(null);
@@ -17,8 +18,8 @@ export default function Index() {
 
     return (
         <div>
-            {user && <div>{user.accountid}</div>}
             {!user && <LoginScreen updateUser={updateUser} />}
+            {user && <BaseScreen user={user} />}
         </div>
     )
 }
