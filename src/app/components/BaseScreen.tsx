@@ -27,7 +27,5 @@ export default function BaseScreen(props) {
 }
 
 function getAvatarURL(hash) {
-    const tag = hash.substr(0, 2);
-    const url = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" + tag + "/" + hash + "_full.jpg";
-    return url;
+    return "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" + hash.substr(0, 2) + "/" + hash + "_full.jpg";
 }
