@@ -1,6 +1,9 @@
 import store from "../store/account";
 import {getCommunity} from "./instance";
-import { SteamLoginDetails, SteamLoginResponse } from "./types";
+import { Steam2FAErrors, SteamLoginDetails, SteamLoginResponse } from "./types";
+import { getAuthCode } from "steam-totp";
+
+const PATH_TO_ACCOUNT_SECRETS = "auth.json";
 
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
     return await new Promise((resolve) => {
@@ -9,9 +12,10 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
 
                 // Gracefully handle our error
                 if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
-                store.set("cookies", cookies);
-                store.set("steamguard", steamguard);
-                store.set("oAuthToken", oAuthToken);
+                let steamid = community.steamID.accountid;
+                store.set(`${steamid}.cookies`, cookies);
+                store.set(`${steamid}.steamguard`, steamguard);
+                store.set(`${steamid}.oAuthToken`, oAuthToken);
                 resolve({});
             });
         });

@@ -17,7 +17,7 @@ export default function BaseScreen(props) {
                         </div>
                     </div>
                     <div id="MainContent" className="w-full h-full">
-                        <AuthSetup />
+                        <AuthSetup user={props.user} updateUser={props.updateUser} />
                     </div>
                 </div>
             </div>
