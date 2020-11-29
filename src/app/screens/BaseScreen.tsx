@@ -1,4 +1,5 @@
 import React from "react";
+import AuthSetup from "../components/AuthSetup";
 
 export default function BaseScreen(props) {
     return (
@@ -16,9 +17,7 @@ export default function BaseScreen(props) {
                         </div>
                     </div>
                     <div id="MainContent" className="w-full h-full">
-                        <div className="p-4">
-                            Some content
-                        </div>
+                        <AuthSetup />
                     </div>
                 </div>
             </div>
