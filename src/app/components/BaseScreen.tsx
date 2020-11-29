@@ -9,18 +9,20 @@ export default function BaseScreen(props) {
                     <div onClick={window["electron"].window.minimize}>Minimise</div>
                     <div onClick={window["electron"].window.maximize}>Fullscreen</div>
                 </div>
-                <div id="MainContent" className="flex flex-grow">
+                <div id="Main" className="flex flex-grow flex-wrap">
                     <div id="Topbar" className="w-full h-20 bg-indigo-400">
                         <div className="h-20 w-20 flex">
                             <img src={getAvatarURL(props.user.avatarHash)} className="m-auto h-16 w-16 rounded" />
                         </div>
                     </div>
-                    
+                    <div id="MainContent" className="w-full h-full">
+                        <div className="p-4">
+                            Some content
+                        </div>
+                    </div>
                 </div>
             </div>
-            
         </div>
-        
     )
 }
 
