@@ -17,7 +17,7 @@ export default function Index() {
     }
 
     return (
-        <div>
+        <div style={{WebkitAppRegion: "drag"}}>
             {!user && <LoginScreen updateUser={updateUser} />}
             {user && <BaseScreen user={user} />}
         </div>

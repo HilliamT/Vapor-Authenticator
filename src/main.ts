@@ -6,6 +6,7 @@ function _createWindow(): void {
     const mainWindow = new BrowserWindow({
         height: 600,
         width: 800,
+        frame: false,
 
         webPreferences: { // Allows us to load some NodeJS scripts before browser loads
             enableRemoteModule: true,

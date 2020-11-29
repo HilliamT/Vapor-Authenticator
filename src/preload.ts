@@ -19,5 +19,15 @@ contextBridge.exposeInMainWorld("electron", {
             console.log(community.steamID);
             return community.steamID;
         });
+    window: {
+        close: function() {
+            require("electron").remote.getCurrentWindow().close();
+        },
+        minimize: function() {
+            require("electron").remote.getCurrentWindow().minimize();
+        },
+        maximize: function() {
+            require("electron").remote.getCurrentWindow().maximize();
+        }
     }
 })
