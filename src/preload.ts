@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge } from "electron";
 import { getCommunity, getSteamUser } from "./lib/steam/instance";
-import { attemptLogin } from "./lib/steam/login";
+import { attemptLogin, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 
 contextBridge.exposeInMainWorld("electron", {
@@ -17,6 +17,11 @@ contextBridge.exposeInMainWorld("electron", {
         await getCommunity(); // Ensure that the user's details from store are gathered first
         const user = await getSteamUser();
         return user;
+    },
+    authenticate: {
+        setupDesktopAuth: function() {
+            return turnOnTwoFactor();
+        }  
     },
     window: {
         close: function() {
