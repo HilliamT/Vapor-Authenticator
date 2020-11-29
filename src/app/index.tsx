@@ -1,7 +1,6 @@
-import LoginScreen from "./components/LoginScreen";
-
 import React, { useEffect, useState } from "react";
-import BaseScreen from "./components/BaseScreen";
+import LoginScreen from "./screens/LoginScreen";
+import BaseScreen from "./screens/BaseScreen";
 
 export default function Index() {
     const [user, setUser] = useState(null);
