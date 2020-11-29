@@ -1,10 +1,9 @@
-import ElectronStore from "electron-store";
 import store from "../store/account";
 import community from "./instance";
-import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
+import { SteamLoginDetails, SteamLoginResponse } from "./types";
 
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
-    return await new Promise((resolve, reject) => {
+    return await new Promise((resolve, _) => {
         community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
             // Gracefully handle our error

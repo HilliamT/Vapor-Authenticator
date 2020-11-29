@@ -20,7 +20,7 @@ export default function LoginScreen(props) {
             {Object.keys(loginResponse).length !== 0 && showCodePrompt(loginResponse)}
 
             {<button value="" onClick={() => {
-                let details = {accountName, password, captcha};
+                const details = {accountName, password, captcha};
                 details[authMethod.method] = authMethod.value;
                 electron.tryLogin(details).then(response => {
                     if (Object.keys(response).length == 0) return props.updateUser();
@@ -33,12 +33,11 @@ export default function LoginScreen(props) {
     )
 
     function showCodePrompt(response) {
-        let {error, captchaurl, emaildomain} = response;
+        const {error, captchaurl} = response;
         const SteamLoginErrors = window["electron"].steamLoginErrors;
     
         switch(error) {
             case SteamLoginErrors.IncorrectDetails:
-                console.log("Stop being an idiot");
                 return (
                     <div>
                         <div className="">Your username or password is incorrect. Please try again.</div>
@@ -73,19 +72,13 @@ export default function LoginScreen(props) {
                     </div>
                 )
                 break;
-            case null:
-                console.log("Success! From the console");
-                break;
             default:
-                console.log(error);
-                break;
+                return (
+                    <div>
+                        Fallthrough case text
+                    </div>
+                )
         }
-    
-        return (
-            <div>
-                <input name=""/>
-            </div>
-        )
     }
 }
 
