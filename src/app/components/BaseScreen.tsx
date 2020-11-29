@@ -4,13 +4,28 @@ export default function BaseScreen(props) {
     return (
         <div>
             <div className="flex w-full">
-                <div id="Sidebar" className="w-5 h-full bg-blue-700"></div>
-                <div id="MainContent w-fill">
-                    <div id="Topbar"></div>
+                <div id="Sidebar" className="w-20 h-screen bg-indigo-500">
+                    <div className="cursor-pointer" onClick={window["electron"].window.close}>Close</div>
+                    <div onClick={window["electron"].window.minimize}>Minimise</div>
+                    <div onClick={window["electron"].window.maximize}>Fullscreen</div>
+                </div>
+                <div id="MainContent" className="flex flex-grow">
+                    <div id="Topbar" className="w-full h-20 bg-indigo-400">
+                        <div className="h-20 w-20 flex">
+                            <img src={getAvatarURL(props.user.avatarHash)} className="m-auto h-16 w-16 rounded" />
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-            <div className="">{props.user.accountid}</div>
+            
         </div>
         
     )
+}
+
+function getAvatarURL(hash) {
+    const tag = hash.substr(0, 2);
+    const url = "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" + tag + "/" + hash + "_full.jpg";
+    return url;
 }

@@ -1,8 +1,7 @@
 import { ipcRenderer, contextBridge } from "electron";
-import { getCommunity } from "./lib/steam/instance";
+import { getCommunity, getSteamUser } from "./lib/steam/instance";
 import { attemptLogin } from "./lib/steam/login";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
-import store from "./lib/store/account";
 
 contextBridge.exposeInMainWorld("electron", {
     notificationApi: {
@@ -14,11 +13,11 @@ contextBridge.exposeInMainWorld("electron", {
         return attemptLogin(details);
     },
     steamLoginErrors: SteamLoginErrors,
-    getUser: function() {
-        return getCommunity().then(community => {
-            console.log(community.steamID);
-            return community.steamID;
-        });
+    getUser: async function() {
+        await getCommunity(); // Ensure that the user's details from store are gathered first
+        const user = await getSteamUser();
+        return user;
+    },
     window: {
         close: function() {
             require("electron").remote.getCurrentWindow().close();

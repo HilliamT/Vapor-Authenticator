@@ -3,7 +3,7 @@ import {getCommunity} from "./instance";
 import { SteamLoginDetails, SteamLoginResponse } from "./types";
 
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
-    return await new Promise((resolve, _) => {
+    return await new Promise((resolve) => {
         getCommunity().then(community => {
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
