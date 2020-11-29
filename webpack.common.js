@@ -6,23 +6,21 @@ module.exports = {
     target: "electron-renderer",
     module: {
         rules: [{
-            // Compile our .tsx files
+            // Turn all our .tsx into .js files
             test: /\.tsx$/,
             exclude: /node_modules/,
             use: [{ 
-                // Compile .tsx -> .js (with JSX)
-                loader: "ts-loader"
-            }, { 
-                // Compile .js (with JSX) -> Plain .js
-                loader: 'babel-loader',
+                // Compile .tsx -> .js (with JSX) -> Plain .js
+                loader: "babel-loader",
                 options: {
-                    presets: [[
-                    '@babel/preset-env', {
+                    presets: [
+                    "@babel/preset-typescript", [
+                    "@babel/preset-env", {
                         targets: {
                         esmodules: true
                         }
                     }],
-                    '@babel/preset-react']
+                    "@babel/preset-react"]
                 }
             }]
         },{
