@@ -1,3 +1,16 @@
 import SteamCommunity from "steamcommunity";
+import store from "../store/account";
 const community = new SteamCommunity();
-export default community;
+
+export function getCommunity(): Promise<any> {
+    return new Promise((resolve, reject) => {
+        if (store.has("oAuthToken") && store.has("steamguard")) {
+            community.oAuthLogin(store.get("steamguard"), store.get("oAuthToken"), (err) => {
+                if (err) return reject(err);
+                resolve(community);
+            })
+        } else {
+            resolve(community);
+        }
+    });
+}

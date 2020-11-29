@@ -1,9 +1,15 @@
 import LoginScreen from "./components/LoginScreen";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Index() {
-    const [user, setUser] = useState(window["electron"].getUser());
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        (async () => {
+            setUser(await window["electron"].getUser());
+        })();
+    }, []);
 
     function updateUser() {
         setUser(window["electron"].getUser());
