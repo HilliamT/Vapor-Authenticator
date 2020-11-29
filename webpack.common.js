@@ -25,10 +25,13 @@ module.exports = {
                     '@babel/preset-react']
                 }
             }]
+        },{
+            test: /\.css$/,
+            use: ["style-loader", "css-loader", "postcss-loader"]
         }]
     },
     resolve: { // Resolve any .js or .tsx modules referenced in index.tsx and encountered files
-        extensions: [".js", ".tsx"]
+        extensions: [".js", ".tsx", ".css"]
     },
     output: { // Output to /build/app/app.js
         filename: "app.js",

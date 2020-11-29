@@ -12,12 +12,17 @@
     "@typescript-eslint/parser": "^4.8.2",
     "babel-loader": "^8.2.2",
     "concurrently": "^5.3.0",
+    "css-loader": "^5.0.1",
     "electron": "11.0.3",
     "eslint": "^7.14.0",
+    "postcss": "^8.1.10",
+    "postcss-loader": "^4.1.0",
+    "style-loader": "^2.0.0",
     "ts-loader": "^8.0.11",
     "typescript": "^4.1.2",
     "webpack": "^5.9.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,7 +33,7 @@
     "build": "npm run build:electron && npm run build:react",
     "watch:electron": "tsc --watch",
     "watch:react": "webpack --config webpack.common.js --watch",
-    "watch": "concurrently \"npm:watch*\"",
+    "watch": "concurrently \"npm run watch:react\" \"npm run bootup\"",
     "bootup": "electron ./build/main.js",
     "start": "npm run build && npm run bootup"
   },
@@ -43,10 +48,12 @@
   },
   "homepage": "https://github.com/HilliamT/vapor-authenticator#readme",
   "dependencies": {
+    "autoprefixer": "^10.0.4",
     "electron-store": "^6.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "steamcommunity": "^3.42.0"
+    "steamcommunity": "^3.42.0",
+    "tailwindcss": "^2.0.1"
   }
 }
