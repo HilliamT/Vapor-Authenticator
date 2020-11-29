@@ -11,6 +11,8 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
             if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
             console.log(community.steamID);
             store.set("user", community.steamID);
+            store.set("steamguard", steamguard);
+            store.set("oAuthToken", oAuthToken);
             resolve({});
         });
     });
