@@ -13,22 +13,29 @@ export default function LoginScreen(props) {
     const [loginResponse, setLoginResponse] = useState({});
 
     return (
-        <div>
-            <input id="accountName" name="username" placeholder="Username" onChange={(e) => setAccountName(e.target.value)}/>
-            <input id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+        <div className="flex h-screen w-screen">
+            <div className="m-auto">
+                <div className="text-3xl font-semibold">Vapor</div>
+                <span className="text-xl">Desktop Authenticator for Steam</span>
+                <br /><br />
+                <div>
+                    <input id="accountName" name="username" placeholder="Username" onChange={(e) => setAccountName(e.target.value)}/>
+                    <input id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
 
-            {Object.keys(loginResponse).length !== 0 && showCodePrompt(loginResponse)}
+                    {Object.keys(loginResponse).length !== 0 && showCodePrompt(loginResponse)}
 
-            {<button value="" onClick={() => {
-                const details = {accountName, password, captcha};
-                details[authMethod.method] = authMethod.value;
-                electron.tryLogin(details).then(response => {
-                    if (Object.keys(response).length == 0) return props.updateUser();
-                    setLoginResponse(response)
-                })
-            }}>
-                Login</button>}
-
+                    {<button className="bg-black text-white rounded px-3 py-1" onClick={() => {
+                        const details = {accountName, password, captcha};
+                        details[authMethod.method] = authMethod.value;
+                        electron.tryLogin(details).then(response => {
+                            if (Object.keys(response).length == 0) return props.updateUser();
+                            setLoginResponse(response)
+                        })
+                    }}>
+                        Login</button>}
+                </div>
+            </div>
+        
         </div>
     )
 
