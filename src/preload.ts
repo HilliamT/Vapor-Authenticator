@@ -1,12 +1,19 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const replaceText = (selector: string, text: string) => {
-        const element = document.getElementById(selector);
-        if (element) {
-            element.innerText = text;
+import { ipcRenderer, contextBridge } from "electron";
+import { attemptLogin } from "./lib/steam/login";
+import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
+import store from "./lib/store/account";
+
+contextBridge.exposeInMainWorld("electron", {
+    notificationApi: {
+    sendNotification(message: string) {
+            ipcRenderer.send("notify", message);
         }
-    };
-  
-    for (const type of ["chrome", "node", "electron"]) {
-        replaceText(`${type}-version`, process.versions[type as keyof NodeJS.ProcessVersions]);
+    },
+    tryLogin: function(details: SteamLoginDetails): Promise<SteamLoginResponse> {
+        return attemptLogin(details);
+    },
+    steamLoginErrors: SteamLoginErrors,
+    getUser: function() {
+        return store.get("user");
     }
-});
+})

@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "noImplicitAny": true,
+        "target": "es2018",
+        "noImplicitAny": false,
         "esModuleInterop": true,
         "sourceMap": true,
         "outDir": "build",
@@ -9,7 +10,7 @@
         "paths": {
             "*": ["node_modules/*"]
         },
-        "jsx": "react"
+        "jsx": "react-jsx"
     },
     "include": [
         "src/**/*"

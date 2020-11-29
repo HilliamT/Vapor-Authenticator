@@ -1,4 +1,4 @@
-import {app, BrowserWindow } from "electron";
+import {app, BrowserWindow, ipcMain, Notification } from "electron";
 import * as path from "path";
 
 // Create the browser window
@@ -8,7 +8,11 @@ function _createWindow(): void {
         width: 800,
 
         webPreferences: { // Allows us to load some NodeJS scripts before browser loads
-            preload: path.join(__dirname, "preload.js") 
+            enableRemoteModule: true,
+            nodeIntegration: true,
+            worldSafeExecuteJavaScript: true, // Avoid any string injections
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js")
         }
     });
 
@@ -28,6 +32,10 @@ app.on("ready", function() {
         // dock icon is clicked and there are no other windows open.
         if (BrowserWindow.getAllWindows().length === 0) _createWindow();
     });
+});
+
+ipcMain.on("notify", (_, message: string) => {
+    new Notification({title: "Notification", body: message}).show();
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
