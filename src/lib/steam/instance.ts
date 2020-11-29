@@ -4,7 +4,7 @@ const community = new SteamCommunity();
 
 export function getCommunity(): Promise<any> {
     return new Promise((resolve, reject) => {
-        if (store.has("oAuthToken") && store.has("steamguard")) {
+        if (store.has("oAuthToken") && store.has("steamguard") && store.has("cookies")) {
             community.oAuthLogin(store.get("steamguard"), store.get("oAuthToken"), (err) => {
                 if (err) return reject(err);
                 resolve(community);
