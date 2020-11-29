@@ -11,8 +11,8 @@ export default function Index() {
         })();
     }, []);
 
-    function updateUser() {
-        setUser(window["electron"].getUser());
+    async function updateUser() {
+        setUser(await window["electron"].getUser());
     }
 
     return (
