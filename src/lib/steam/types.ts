@@ -12,7 +12,8 @@ export enum SteamLoginErrors {
     IncorrectDetails = "Error: Uncaught Error: The account name or password that you have entered is incorrect.",
     SteamGuard = "SteamGuard",
     SteamGuardMobile = "SteamGuardMobile",
-    Captcha = "CAPTCHA"
+    Captcha = "CAPTCHA",
+    OldSession = "Old Session"
 }
 
 export interface SteamLoginResponse {

@@ -1,24 +1,57 @@
-import store from "../store/account";
-import {getCommunity} from "./instance";
-import { SteamLoginDetails, SteamLoginResponse } from "./types";
-
-const PATH_TO_ACCOUNT_SECRETS = "auth.json";
+import { addAccount, editStore, getAccount, getMainAccount, setMainAccount } from "../store/access";
+import { getCommunity } from "./instance";
+import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
 
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
     return await new Promise((resolve) => {
         getCommunity().then(community => {
-            community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
-                // Gracefully handle our error, asking the user to provide more login information
-                if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
+            // Check if we have their account and last session details on disk to login via oAuth
+            const account = getAccount(details.accountName);
+            if (account && account.steamguard && account.oAuthToken) {
 
-                // Save the user's details on disk for future usage
-                const steamid = community.steamID.accountid;
-                store.set(`${steamid}.cookies`, cookies);
-                store.set(`${steamid}.steamguard`, steamguard);
-                store.set(`${steamid}.oAuthToken`, oAuthToken);
-                resolve({});
-            });
+                community.oAuthLogin(account.steamguard, account.oAuthToken, (err) => {
+                    if (err) {
+
+                        // Chuck out old session data. They'll need to attempt a normal login.
+                        editStore(_store => {
+                            delete account.steamguard;
+                            delete account.oAuthToken;
+                            delete account.cookies;
+                            _store.accounts[details.accountName] = account;
+                            return _store;
+                        });
+                        return resolve({error: SteamLoginErrors.OldSession});
+                    }
+
+                    // Successful login
+                    setMainAccount(details.accountName);
+                    resolve({});
+                });
+            } else {
+
+                // If not, divert to using general login method
+                community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
+
+                    // Gracefully handle our error, asking the user to provide more login information
+                    if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
+    
+                    // Save the user's details on disk for future usage
+                    if (getAccount(details.accountName) == null) {
+                        addAccount(details.accountName, {steamid: community.steamID.getSteamID64(), usingVapor: false});
+                    }
+    
+                    // Save their cookies and oAuthToken for future passwordless access
+                    editStore(_store => {
+                        _store.accounts[details.accountName] = {..._store.accounts[details.accountName], cookies, steamguard, oAuthToken};
+                        _store.id_to_name[community.steamID.accountid] = details.accountName; 
+                        _store.main = details.accountName;
+                        return _store;
+                    });
+    
+                    resolve({});
+                });
+            }
         });
     });
 }
@@ -30,9 +63,13 @@ export async function turnOnTwoFactor(): Promise<any> {
                 if (err) return resolve({error: err.message});
                 
                 // Write user's secrets to disk
-                require('fs').writeFileSync(PATH_TO_ACCOUNT_SECRETS, JSON.stringify(response));
-                store.set(`${community.steamID.accountid}.secrets`, response);
-                store.set(`${community.steamID.accountid}.usingVapor`, false);
+                editStore(_store => {
+                    const account = getMainAccount();
+                    account.secrets = response;
+                    account.usingVapor = false;
+                    _store.accounts[_store.main] = account;
+                    return _store;
+                });
                 resolve({});
             });
         });
@@ -42,11 +79,14 @@ export async function turnOnTwoFactor(): Promise<any> {
 export async function finaliseTwoFactor(activationCode: string): Promise<any>{
     return await new Promise((resolve) => {
         getCommunity().then(community => {
-            community.finalizeTwoFactor(store.get(`${community.steamID.accountid}.secrets.shared_secret`), activationCode, (err) => {
+            community.finalizeTwoFactor(getMainAccount().secrets.shared_secret, activationCode, (err) => {
                 if (err) return resolve({error: err.message});
 
                 // User is using Vapor as their Steam authenticator
-                store.set(`${community.steamID.accountid}.usingVapor`, true);
+                editStore(_store => {
+                    _store.accounts[_store.main].usingVapor = true;
+                    return _store;
+                });
                 resolve({});
             });
         });
@@ -56,12 +96,15 @@ export async function finaliseTwoFactor(activationCode: string): Promise<any>{
 export async function revokeTwoFactor(): Promise<any>{
     return await new Promise((resolve) => {
         getCommunity().then(community => {
-            community.disableTwoFactor(store.get(`${community.steamID.accountid}.secrets.revocation_code`), (err) => {
+            community.disableTwoFactor(getMainAccount().secrets.revocation_code, (err) => {
                 if (err) return resolve({error: err.message});
                 
                 // User is no longer using Vapor as their authenticator - secrets are no longer applicable
-                store.set(`${community.steamID.accountid}.usingVapor`, false);
-                store.delete(`${community.steamID.accountid}.secrets`);
+                editStore(_store => {
+                    _store.accounts[_store.main].usingVapor = false;
+                    delete _store.accounts[_store.main].secrets;
+                    return _store;
+                });
                 resolve({});
             });
         });

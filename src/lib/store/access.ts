@@ -21,8 +21,8 @@ export function getMainAccount(): AccountStore {
     return getAccount(getStore().main);
 }
 
-export function setMainAccount(newMain: string): void {
-    editStore(_store => ({..._store, main: newMain}));
+export function setMainAccount(account_name: string): void {
+    editStore(_store => ({..._store, main: account_name}));
 }
 
 export function getAccount(account_name: string): AccountStore {

@@ -1,8 +1,11 @@
 export interface VaporCache {
-    main: string; // Main account, an account_name, to index
+    main: string; // An account_name
     settings: VaporSettings;
     accounts: {
         [account_name: string]: AccountStore
+    },
+    id_to_name: {
+        [accountid: string]: string // accountid -> account_name
     }
 }
 
