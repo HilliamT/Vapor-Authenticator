@@ -1,53 +1,38 @@
 import React, { useState } from "react";
 
 export default function AuthSetup(props) {
-    const [receivedSMS, setReceivedSMS] = useState(false);
-    const [SMSCode, setSMSCode] = useState("");
+    const [receivedSMS, setReceivedSMS] = useState(false); // Capture if user has been sent a SMS to begin authentication
+    const [SMSCode, setSMSCode] = useState(""); // Input for user's SMS response
+    const { setupDesktopAuth, finishDesktopAuth, revokeDesktopAuth } = window["electron"].authenticate;
 
-    console.log(props.user);
+    return (<div className="p-4">
 
-    return (
-        <div className="p-4">
-            {!props.user.usingVapor && <div> {!receivedSMS && <button onClick={() => {
-                window["electron"].authenticate.setupDesktopAuth().then((response) => {
-                    if (response.error) {
-                        console.log(response.error);
-                    } else {
-                        setReceivedSMS(true);
+        {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
+        {!props.user.usingVapor && <div> 
+            {!receivedSMS && <button onClick={async () => { 
+                const response = await setupDesktopAuth();
+                ((response.error == null) ? setReceivedSMS(true) : console.log(response.error));
+            }}>Set up authentication</button>}
+
+            {receivedSMS && <div>
+                <input name="" placeholder="SMS" onChange={(e) => setSMSCode(e.target.value)}/>
+                <button onClick={async () => {
+                    const response = await finishDesktopAuth(SMSCode);
+                    if (!response.error) {
+                        setReceivedSMS(false);
+                        props.updateUser();
                     }
-                    });
-                }}>Set up authentication</button>}
-
-                {receivedSMS && <div>
-                    <input name="" placeholder="SMS" onChange={(e) => setSMSCode(e.target.value)}/>
-                    <button onClick={
-                        () => window["electron"].authenticate.finishDesktopAuth(SMSCode)
-                        .then((response) => {
-                            if (response.error) {
-                                console.log(response.error);
-                            } else {
-                                setReceivedSMS(false);
-                                props.updateUser();
-                            }
-                        })
-                        .catch(() => {})
-                    }>Finish Setup</button>
-                </div>}
+                }}>Finish Setup</button>
             </div>}
+        </div>}
 
-            {props.user.usingVapor && <div>
-                <div>You are now using Vapor!</div>
-                <div onClick={() => 
-                    window["electron"].authenticate.revokeDesktopAuth().then((response) => {
-                        console.log(response);
-                        if (response.error) {
-                            console.log(response.error);
-                        } else {
-                            props.updateUser();
-                        }
-                    }).catch(() => {})
-                }>Revoke</div>
-            </div>}
-        </div>
-    )
+        {/* This user is using Vapor! */}
+        {props.user.usingVapor && <div>
+            <div>You are now using Vapor!</div>
+            <div onClick={async () => {
+                const response = await revokeDesktopAuth();
+                ((response.error == null) ? props.updateUser() : console.log(response.error));
+            }}>Revoke</div>
+        </div>}
+    </div>)
 }

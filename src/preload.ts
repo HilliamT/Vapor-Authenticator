@@ -1,17 +1,9 @@
-import { ipcRenderer, contextBridge } from "electron";
+import { contextBridge } from "electron";
 import { getCommunity, getSteamUser } from "./lib/steam/instance";
 import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 
 contextBridge.exposeInMainWorld("electron", {
-    notificationApi: {
-    sendNotification(message: string) {
-            ipcRenderer.send("notify", message);
-        }
-    },
-    tryLogin: function(details: SteamLoginDetails): Promise<SteamLoginResponse> {
-        return attemptLogin(details);
-    },
     steamLoginErrors: SteamLoginErrors,
     getUser: async function() {
         await getCommunity(); // Ensure that the user's details from store are gathered first
@@ -19,6 +11,9 @@ contextBridge.exposeInMainWorld("electron", {
         return user;
     },
     authenticate: {
+        tryLogin: function(details: SteamLoginDetails): Promise<SteamLoginResponse> {
+            return attemptLogin(details);
+        },
         setupDesktopAuth: function() {
             return turnOnTwoFactor();
         },

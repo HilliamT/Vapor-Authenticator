@@ -6,19 +6,15 @@ export default function Index() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        (async () => {
-            setUser(await window["electron"].getUser());
-        })();
+        updateUser();
     }, []);
 
     async function updateUser() {
         setUser(await window["electron"].getUser());
     }
 
-    return (
-        <div style={{WebkitAppRegion: "drag"}}>
-            {!user && <LoginScreen updateUser={updateUser} />}
-            {user && <BaseScreen user={user} updateUser={updateUser} />}
-        </div>
-    )
+    return (<div style={{WebkitAppRegion: "drag"}}>
+        {!user && <LoginScreen updateUser={updateUser} />}
+        {user && <BaseScreen user={user} updateUser={updateUser} />}
+    </div>)
 }
