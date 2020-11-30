@@ -13,8 +13,11 @@ export default function BaseScreen(props) {
     function renderAccounts() {
         const elems = [];
         for (let account_name in accounts) {
-            elems.push(<div className="h-20 w-20 flex hover:bg-black hover:bg-opacity-20" key={account_name}>
-                <img className="m-auto h-16 w-16 rounded bg-black" src={getAvatarURL(accounts[account_name].avatarHash)} />
+            elems.push(<div className="h-20 w-20 flex hover:bg-black hover:bg-opacity-20" key={account_name} onClick={async () => {
+                await window["electron"].setCurrentUser(account_name);
+                props.updateUser();
+            }}>
+                <img className="m-auto h-16 w-16 rounded bg-black" src={getAvatarURL(accounts[account_name].avatarHash)}/>
             </div>);
         }
         return elems;

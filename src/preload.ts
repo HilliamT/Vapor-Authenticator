@@ -2,9 +2,14 @@ import { contextBridge } from "electron";
 import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
 import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
+import { setMainAccount } from "./lib/store/access";
 
 contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
+    setCurrentUser: async function(account_name) {
+        setMainAccount(account_name);
+        await getCommunity(); // Update community instance
+    },
     getUser: async function() {
         await getCommunity(); // Ensure that the user's details from store are gathered first
         const user = await getSteamUser();
