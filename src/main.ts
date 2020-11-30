@@ -8,7 +8,7 @@ function _createWindow(): void {
         width: 800,
         minHeight: 600,
         minWidth: 800,
-        frame: false,
+        titleBarStyle: 'hiddenInset',
 
         webPreferences: { // Allows us to load some NodeJS scripts before browser loads
             enableRemoteModule: true,

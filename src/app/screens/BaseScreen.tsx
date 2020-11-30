@@ -6,9 +6,7 @@ export default function BaseScreen(props) {
 
     useEffect(() => {
         (async () => setAccounts(await window["electron"].getAllAccounts()))();
-    }, [])
-
-    const {close, minimize, maximize} = window["electron"].window;
+    }, []);
 
     function renderAccounts() {
         const elems = [];
@@ -27,10 +25,8 @@ export default function BaseScreen(props) {
         <div className="flex w-full">
 
             {/* Leading Sidebar */}
-            <div id="Sidebar" className="w-20 h-screen bg-indigo-500">
-                <div className="cursor-pointer" onClick={close}>Close</div>
-                <div onClick={minimize}>Minimise</div>
-                <div onClick={maximize}>Fullscreen</div>
+            <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
+                <div className="w-full h-20"></div>           
             </div>
 
             <div id="Main" className="flex flex-grow flex-wrap">
