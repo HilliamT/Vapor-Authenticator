@@ -3,12 +3,14 @@ import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/ins
 import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 import { setMainAccount } from "./lib/store/access";
+import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
 
 contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
     setCurrentUser: async function(account_name) {
         setMainAccount(account_name);
         await getCommunity(); // Update community instance
+        await getTradeOfferManager(); // Update trade offer manager instance
     },
     getUser: async function() {
         await getCommunity(); // Ensure that the user's details from store are gathered first
@@ -30,6 +32,17 @@ contextBridge.exposeInMainWorld("electron", {
         },
         revokeDesktopAuth: function() {
             return revokeTwoFactor();
+        }
+    },
+    trading: {
+        getIncomingTradeOffers: function() {
+            return getActiveIncomingOffers();
+        },
+        acceptIncomingOffer: function(offerid) {
+            return acceptOffer(offerid);
+        },
+        declineIncomingOffer: function(offerid) {
+            return declineOffer(offerid);
         }
     },
     window: {

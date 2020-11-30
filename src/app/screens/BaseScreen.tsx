@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AuthSetup from "../components/AuthSetup";
+import IncomingTradeOffers from "../components/IncomingTradeOffers";
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -35,6 +36,7 @@ export default function BaseScreen(props) {
                     {renderAccounts()}
                 </div>
                 <div id="MainContent" className="w-full h-full">
+                    <IncomingTradeOffers user={props.user}/>
                     <AuthSetup user={props.user} updateUser={props.updateUser} />
                 </div>
             </div>
