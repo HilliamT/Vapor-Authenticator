@@ -48,7 +48,6 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
                         _store.main = details.accountName;
                         return _store;
                     });
-    
                     resolve({});
                 });
             }

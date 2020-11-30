@@ -1,5 +1,5 @@
 import { contextBridge } from "electron";
-import { getCommunity, getSteamUser } from "./lib/steam/instance";
+import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
 import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 
@@ -9,6 +9,9 @@ contextBridge.exposeInMainWorld("electron", {
         await getCommunity(); // Ensure that the user's details from store are gathered first
         const user = await getSteamUser();
         return user;
+    },
+    getAllAccounts: function() {
+        return getStoredSteamUsers();
     },
     authenticate: {
         tryLogin: function(details: SteamLoginDetails): Promise<SteamLoginResponse> {
