@@ -47,7 +47,7 @@ export default function LoginScreen(props) {
             case SteamLoginErrors.IncorrectDetails:
                 return (
                     <div>
-                        <div className="">Your username or password is incorrect. Please try again.</div>
+                        <div className="text-sm text-red-300">Your username or password is incorrect. Please try again.</div>
                     </div>
                 )
                 break;
@@ -81,8 +81,8 @@ export default function LoginScreen(props) {
                 break;
             default:
                 return (
-                    <div>
-                        Fallthrough case text
+                    <div className="text-sm text-red-300">
+                        You have been timed out temporarily. Please try again later.
                     </div>
                 )
         }
