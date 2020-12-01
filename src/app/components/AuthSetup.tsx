@@ -37,6 +37,8 @@ export default function AuthSetup(props) {
             }}>Set up authentication</button>}
 
             {receivedSMS && <div>
+                <div>SMS from Steam sent! Please enter the code you receive to complete the setup.</div>
+                <br />
                 <input name="" placeholder="SMS" onChange={(e) => setSMSCode(e.target.value)}/>
                 <button onClick={async () => {
                     const response = await finishDesktopAuth(SMSCode);
