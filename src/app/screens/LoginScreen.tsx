@@ -52,14 +52,14 @@ export default function LoginScreen(props) {
                 return (<div className="text-sm text-red-600">Your username or password is incorrect. Please try again.</div>);
             case SteamLoginErrors.SteamGuardMobile:
                 return (<div>
-                    <input name="steamguardmobile" placeholder="SteamGuardMobile" onChange={(e) => setAuthMethod({
+                    <input name="steamguardmobile" placeholder="Mobile Auth Code" className="rounded border p-1 mx-1"  onChange={(e) => setAuthMethod({
                         method: "twoFactorCode",
                         value: e.target.value
                     })}/>
                 </div>)
             case SteamLoginErrors.SteamGuard:
                 return (<div>
-                    <input name="steamguard" placeholder="SteamGuard" onChange={(e) => setAuthMethod({
+                    <input name="steamguard" placeholder="Email Auth Code" className="rounded border p-1 mx-1" onChange={(e) => setAuthMethod({
                         method: "authCode",
                         value: e.target.value
                     })} />
@@ -68,7 +68,7 @@ export default function LoginScreen(props) {
                 return (<div>
                     <div className="">Please fill in this captcha</div>
                     <img src={captchaurl} />
-                    <input name="captcha" placeholder="Captcha" onChange={(e) => setCaptcha(e.target.value)}/>
+                    <input name="captcha" placeholder="Captcha" className="rounded border p-1 mx-1" onChange={(e) => setCaptcha(e.target.value)}/>
                 </div>)
             default:
                 return (<div className="text-sm text-red-300">
