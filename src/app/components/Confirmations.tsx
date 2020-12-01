@@ -15,10 +15,16 @@ export default function Confirmations(props) {
     }, [props.user]);
 
     function renderConfirmations() {
-        if (!props.user.usingVapor) return (<div>You're not using Vapor - can't get your confirmations</div>);
-        if (confirmations.length == 0) return (<div>None.</div>)
+        if (!props.user.usingVapor)
+            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
+                You're not using Vapor - can't get your confirmations
+            </div>);
+        if (confirmations.length == 0)
+            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
+                No confirmations found
+            </div>)
         return confirmations.map((conf) => {
-            return (<div>
+            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
                 <span>{conf.id}</span>
                 <div>{conf.title}</div>
                 <div>{conf.time}</div>
@@ -27,8 +33,8 @@ export default function Confirmations(props) {
         });
     }
 
-    return (<div>
-        Confirmations
+    return (<div className="m-2 flex flex-wrap">
+        <div className="mx-4 font-bold text-2xl w-full">Confirmations</div>
         {renderConfirmations()}
     </div>);
 }
