@@ -27,10 +27,11 @@ export default function AuthSetup(props) {
     }, [props.user]);
     
 
-    return (<div className="m-2">
+    return (<div className="m-2 flex flex-wrap">
+        <div className="mx-4 font-bold text-2xl w-full">Authenticator</div>
 
         {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
-        {!props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow"> 
+        {!props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full"> 
             {!receivedSMS && <button onClick={async () => { 
                 const response = await setupDesktopAuth();
                 ((response.error == null) ? setReceivedSMS(true) : "");
@@ -51,7 +52,7 @@ export default function AuthSetup(props) {
         </div>}
 
         {/* This user is using Vapor! */}
-        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow">
+        {props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full">
             <div className="justify-center text-center w-full">
                 <span className="text-gray-400">Your Steam Guard code is</span>
                 <br />
@@ -61,7 +62,7 @@ export default function AuthSetup(props) {
                 {30 - seconds}s left
             </div>
         </div>}
-        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow">
+        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow w-full">
             <div onClick={async () => {
                 const response = await revokeDesktopAuth();
                 ((response.error == null) ? props.updateUser() : "");
