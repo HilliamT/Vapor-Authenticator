@@ -3,6 +3,8 @@ import AuthSetup from "../components/AuthSetup";
 import IncomingTradeOffers from "../components/IncomingTradeOffers";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckSquare, faHome, faPeopleArrows, faStopwatch } from "@fortawesome/free-solid-svg-icons"; 
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -29,15 +31,23 @@ export default function BaseScreen(props) {
         <div className="flex w-full">
             <HashRouter>
                 {/* Leading Sidebar */}
-                <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
+                <div id="Sidebar" className="w-20 h-screen bg-indigo-500 flex flex-wrap content-start">
                     <div className="w-full h-20"></div>
-                    <Link className="text-sm" to="/">Home</Link>
+                    <Link className="text-sm w-full text-center h-20 group" to="/">
+                        <FontAwesomeIcon icon={faHome} size="2x" className="opacity-30 group-hover:opacity-80"/>
+                    </Link>
                     <br />
-                    <Link className="text-sm" to="/offers/incoming">Trade Offers</Link>
+                    <Link className="text-sm w-full text-center h-20 group" to="/offers/incoming">
+                        <FontAwesomeIcon icon={faPeopleArrows} size="2x" className="opacity-30 group-hover:opacity-80" />
+                    </Link>
                     <br />
-                    <Link className="text-sm" to="/confirmations">Confirmations</Link>
+                    <Link className="text-sm w-full text-center h-20 group" to="/confirmations">
+                        <FontAwesomeIcon icon={faCheckSquare} size="2x" className="opacity-30 group-hover:opacity-80" />
+                        </Link>
                     <br />
-                    <Link className="text-sm" to="/authenticator">Authenticator</Link>
+                    <Link className="text-sm w-full text-center h-20 group" to="/authenticator">
+                        <FontAwesomeIcon icon={faStopwatch} size="2x" className="opacity-30 group-hover:opacity-60" />
+                    </Link>
                 </div>
 
                 <div id="Main" className="flex flex-grow flex-wrap">
