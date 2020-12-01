@@ -25,7 +25,7 @@ export default function LoginScreen(props) {
                 <span className="text-xs mt-6 text-gray-400">Desktop Authenticator for Steam</span>
                 <div className="w-full content-center justify-center flex flex-wrap mt-10">
                     <input id="accountName" name="username" placeholder="Username" className="rounded border p-1 mx-1" onChange={(e) => setAccountName(e.target.value)}/>
-                    <input id="password" name="password" placeholder="Password" className="rounded border p-1 mx-1" onChange={(e) => setPassword(e.target.value)}/>
+                    <input id="password" type="password" name="password" placeholder="Password" className="rounded border p-1 mx-1" onChange={(e) => setPassword(e.target.value)}/>
 
                     {<button className="bg-black text-white rounded px-3 text-sm inline" onClick={async () => {
                         const details = {accountName, password, captcha};
