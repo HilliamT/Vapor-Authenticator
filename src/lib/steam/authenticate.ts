@@ -1,6 +1,7 @@
 import { addAccount, editStore, getAccount, getMainAccount, setMainAccount } from "../store/access";
 import { getCommunity } from "./instance";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
+import { getAuthCode } from "steam-totp";
 
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
     return await new Promise((resolve) => {
@@ -108,4 +109,8 @@ export async function revokeTwoFactor(): Promise<any>{
             });
         });
     });
+}
+
+export function generateAuthCode() {
+    return getAuthCode(getMainAccount().secrets.shared_secret);
 }

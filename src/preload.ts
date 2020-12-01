@@ -1,6 +1,6 @@
 import { contextBridge } from "electron";
 import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
-import { attemptLogin, finaliseTwoFactor, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
+import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 import { setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
@@ -32,6 +32,9 @@ contextBridge.exposeInMainWorld("electron", {
         },
         revokeDesktopAuth: function() {
             return revokeTwoFactor();
+        },
+        getAuthCode: function() {
+            return generateAuthCode();
         }
     },
     trading: {
