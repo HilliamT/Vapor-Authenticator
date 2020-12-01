@@ -8,6 +8,9 @@ export default function Confirmations(props) {
         const interval = setInterval(async () => {
             setConfirmations(await window["electron"].confirmations.getActiveConfirmations());
         }, 10 * 1000);
+        (async () => {
+            setConfirmations(await window["electron"].confirmations.getActiveConfirmations());
+        })();
         return () => clearInterval(interval);
     }, [props.user]);
 

@@ -7,6 +7,9 @@ export default function IncomingTradeOffers(props) {
         const interval = setInterval(() => {
             updateTradeOffers();
         }, 10 * 1000);
+        (async () => {
+            updateTradeOffers();
+        })();
         return () => clearInterval(interval);
     }, [props.user]);
 
