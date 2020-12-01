@@ -16,7 +16,6 @@ export default function BaseScreen(props) {
     function renderAccounts() {
         const elems = [];
         for (const account_name in accounts) {
-            elems.push(<div className={`h-20 w-20 flex hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
             elems.push(<div className={`h-20 w-20 flex cursor-pointer hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
                 key={account_name} onClick={async () => {
                     await window["electron"].setCurrentUser(account_name);
@@ -56,22 +55,23 @@ export default function BaseScreen(props) {
                     <div id="Topbar" className="w-full h-20 bg-indigo-400 flex">
                         {renderAccounts()}
                     </div>
-                    <div id="MainContent" className="w-full h-full">
-                        
-                        <Switch>
-                            <Route exact path="/">
-                                <div>Hi</div>
-                            </Route>
-                            <Route path="/offers/incoming">
-                                <IncomingTradeOffers user={props.user}/>
-                            </Route>
-                            <Route path="/confirmations">
-                                <Confirmations user={props.user} />
-                            </Route>
-                            <Route path="/authenticator">
-                                <AuthSetup user={props.user} updateUser={props.updateUser} />
-                            </Route>
-                        </Switch>
+                    <div id="MainContent" className="w-full h-full bg-gray-100">
+                        <div className="m-4 p-4 bg-white rounded shadow">
+                            <Switch>
+                                <Route exact path="/">
+                                    <div>Hi</div>
+                                </Route>
+                                <Route path="/offers/incoming">
+                                    <IncomingTradeOffers user={props.user}/>
+                                </Route>
+                                <Route path="/confirmations">
+                                    <Confirmations user={props.user} />
+                                </Route>
+                                <Route path="/authenticator">
+                                    <AuthSetup user={props.user} updateUser={props.updateUser} />
+                                </Route>
+                            </Switch>
+                        </div>
                     </div>
                 </div>
             </HashRouter>
