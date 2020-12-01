@@ -4,6 +4,8 @@ export default function IncomingTradeOffers(props) {
     const [tradeOffers, setTradeOffers] = useState([]);
 
     useEffect(() => {
+
+        // Poll for new incoming trade offers every 10 seconds
         const interval = setInterval(() => {
             updateTradeOffers();
         }, 10 * 1000);
@@ -13,6 +15,7 @@ export default function IncomingTradeOffers(props) {
         return () => clearInterval(interval);
     }, [props.user]);
 
+    // Perform fetch to get new incoming trade offers
     async function updateTradeOffers() {
         setTradeOffers(await window["electron"].trading.getIncomingTradeOffers());
     }
@@ -25,6 +28,8 @@ export default function IncomingTradeOffers(props) {
                 <br />
                 {offer.created.toString()}
                 <br />
+
+                {/* Accept or decline trade offer */}
                 <div className="bg-blue-500 text-white cursor-pointer m-1 p-1 inline-block rounded" onClick={() => {
                     window["electron"].trading.acceptIncomingOffer(offer.id).then(updateTradeOffers);
                 }}>Accept</div>

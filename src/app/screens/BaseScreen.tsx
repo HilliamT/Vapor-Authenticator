@@ -65,6 +65,8 @@ export default function BaseScreen(props) {
                         <div id="Topbar" className="w-full h-20 bg-indigo-400 flex overflow-x-scroll whitespace-nowrap">
                             {renderAccounts()}
                         </div>
+
+                        {/* Main body of the Desktop app, acting as SPA with components being swapped out inside here */}
                         <div id="MainContent" className="w-full h-full bg-gray-100">
                             <Switch>
                                 <Route exact path="/">

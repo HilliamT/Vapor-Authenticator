@@ -5,12 +5,15 @@ export default function Confirmations(props) {
 
     useEffect(() => {
         if (!props.user.usingVapor) return;
+
+        // Poll for new market listing or trade confirmations every 10 seconds
         const interval = setInterval(async () => {
             setConfirmations(await window["electron"].confirmations.getActiveConfirmations());
         }, 10 * 1000);
         (async () => {
             setConfirmations(await window["electron"].confirmations.getActiveConfirmations());
         })();
+
         return () => clearInterval(interval);
     }, [props.user]);
 
@@ -23,6 +26,8 @@ export default function Confirmations(props) {
             return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
                 No confirmations found
             </div>)
+
+        // TODO: Design resultant confirmation element to allow for one to confirm or cancel a confirmation
         return confirmations.map((conf) => {
             return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
                 <span>{conf.id}</span>

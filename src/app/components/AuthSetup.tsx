@@ -13,6 +13,8 @@ export default function AuthSetup(props) {
             if (!props.user.usingVapor) return;
             const currentDateSeconds = new Date().getSeconds();
             let interval;
+            
+            // Generate a new code on XX:XX:00 or XX:XX:30
             if (currentDateSeconds % 30 == 0) interval = setInterval(() => setAuthCode(getAuthCode()), 30 * 1000);
             if (currentDateSeconds % 30 != 0) interval = setTimeout(generateNewAuthCode, (30 - currentDateSeconds % 30) * 1000);
             setAuthCode(getAuthCode());
@@ -20,6 +22,8 @@ export default function AuthSetup(props) {
         }
         const authInterval = generateNewAuthCode();        
         const secondInterval = setInterval(() => setSeconds(new Date().getSeconds() % 30), 1000);
+        
+        // Return cleanup instructions to remove intervals
         return () => {
             clearInterval(authInterval);
             clearInterval(secondInterval);
@@ -44,6 +48,8 @@ export default function AuthSetup(props) {
                 <button onClick={async () => {
                     const response = await finishDesktopAuth(SMSCode);
                     if (!response.error) {
+
+                        // User has finished SMS verification
                         setReceivedSMS(false);
                         props.updateUser();
                     }

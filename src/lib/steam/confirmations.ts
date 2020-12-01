@@ -29,6 +29,8 @@ export function getAllConfirmations() {
             const identitySecret = getMainAccount().secrets.identity_secret;
             community.getConfirmations(time(), getConfirmationKey(identitySecret, time(), ConfirmationTag.GetAll), async (err, confirmations) => {
                 const _confirmations = [];
+
+                // Populate trade confirmations with additional trade information
                 for (const confirmation of confirmations) {
                     _confirmations.push((confirmation.type == ConfirmationType.Trade) ? await populateConfirmation(confirmation, identitySecret) : confirmation);
                 }
