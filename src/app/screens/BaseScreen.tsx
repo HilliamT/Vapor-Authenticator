@@ -5,6 +5,7 @@ import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare, faHome, faPeopleArrows, faPlus, faStopwatch } from "@fortawesome/free-solid-svg-icons"; 
+import Home from "../components/Home";
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -65,7 +66,7 @@ export default function BaseScreen(props) {
                     <div id="MainContent" className="w-full h-full bg-gray-100">
                         <Switch>
                             <Route exact path="/">
-                                <div>Hi</div>
+                                <Home />
                             </Route>
                             <Route path="/offers/incoming">
                                 <IncomingTradeOffers user={props.user}/>
