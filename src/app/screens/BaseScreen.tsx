@@ -30,6 +30,7 @@ export default function BaseScreen(props) {
                 {/* Leading Sidebar */}
                 <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
                     <div className="w-full h-20"></div>
+                    <Link className="text-sm" to="/">Home</Link>
                     <Link className="text-sm" to="/offers/incoming">Trade Offers</Link>
                     <br />
                     <Link className="text-sm" to="/authenticator">Authenticator</Link>
