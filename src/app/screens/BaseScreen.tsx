@@ -17,6 +17,7 @@ export default function BaseScreen(props) {
         const elems = [];
         for (const account_name in accounts) {
             elems.push(<div className={`h-20 w-20 flex hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
+            elems.push(<div className={`h-20 w-20 flex cursor-pointer hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
                 key={account_name} onClick={async () => {
                     await window["electron"].setCurrentUser(account_name);
                     props.updateUser();
