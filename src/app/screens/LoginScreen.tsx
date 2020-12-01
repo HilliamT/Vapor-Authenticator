@@ -43,10 +43,10 @@ export default function LoginScreen(props) {
         const SteamLoginErrors = window["electron"].steamLoginErrors;
     
         switch(error) {
+            case SteamLoginErrors.MissingDetails:
+                return (<div className="text-xs text-red-600">Missing your username or password <FontAwesomeIcon icon={faSadCry} className="opacity-40 align-middle" size="2x" /></div>)
             case SteamLoginErrors.IncorrectDetails:
-                return (<div>
-                    <div className="text-sm text-red-300">Your username or password is incorrect. Please try again.</div>
-                </div>);
+                return (<div className="text-sm text-red-600">Your username or password is incorrect. Please try again.</div>);
             case SteamLoginErrors.SteamGuardMobile:
                 return (<div>
                     <input name="steamguardmobile" placeholder="SteamGuardMobile" onChange={(e) => setAuthMethod({

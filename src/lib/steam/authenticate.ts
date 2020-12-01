@@ -32,6 +32,7 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
             } else {
 
                 // If not, divert to using general login method
+                if (details.accountName == "" || details.password == "") return resolve({error: SteamLoginErrors.MissingDetails});
                 community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
                     // Gracefully handle our error, asking the user to provide more login information
