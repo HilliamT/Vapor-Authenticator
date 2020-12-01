@@ -38,7 +38,7 @@ export default function BaseScreen(props) {
     }
 
     return (<div>
-        <div className="w-screen flex">
+        <div className="w-auto flex">
             <HashRouter>
                 {/* Leading Sidebar */}
                 <div id="Sidebar" className="w-20 h-screen bg-indigo-500 flex flex-wrap content-start flex-none">
@@ -60,7 +60,7 @@ export default function BaseScreen(props) {
                     </Link>
                 </div>
 
-                <div id="Main" className="w-auto overflow-hidden h-screen flex flex-wrap">
+                <div id="Main" className="w-full overflow-hidden h-screen flex flex-wrap">
                         {/* Secondary Sidebar */}
                         <div id="Topbar" className="w-full h-20 bg-indigo-400 flex overflow-x-scroll whitespace-nowrap">
                             {renderAccounts()}
