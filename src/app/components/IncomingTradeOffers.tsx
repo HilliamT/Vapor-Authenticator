@@ -20,8 +20,8 @@ export default function IncomingTradeOffers(props) {
     function renderTradeOffers() {
         if (tradeOffers.length == 0) return (<div className="m-4 p-2 rounded bg-white shadow w-full">None.</div>);
         return tradeOffers.map((offer) => {
-            return (<div className="m-4 p-2 rounded bg-white shadow w-full">
-                {offer.id}
+            return (<div className="m-4 p-2 rounded bg-white shadow w-full" key={offer.id}>
+                <span className="font-bold">Trade #{offer.id}</span>
                 <br />
                 {offer.created.toString()}
                 <br />
