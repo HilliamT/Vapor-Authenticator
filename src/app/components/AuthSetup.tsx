@@ -16,10 +16,14 @@ export default function AuthSetup(props) {
             if (currentDateSeconds % 30 == 0) interval = setInterval(() => setAuthCode(getAuthCode()), 30 * 1000);
             if (currentDateSeconds % 30 != 0) interval = setTimeout(generateNewAuthCode, (30 - currentDateSeconds % 30) * 1000);
             setAuthCode(getAuthCode());
-            return () => clearInterval(interval);
+            return interval;
         }
-        generateNewAuthCode();
-        setInterval(() => setSeconds(new Date().getSeconds() % 30), 1000);
+        const authInterval = generateNewAuthCode();        
+        const secondInterval = setInterval(() => setSeconds(new Date().getSeconds() % 30), 1000);
+        return () => {
+            clearInterval(authInterval);
+            clearInterval(secondInterval);
+        }
     }, [props.user]);
     
 
