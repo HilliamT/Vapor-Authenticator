@@ -4,6 +4,7 @@ import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, tur
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 import { setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
+import { getAllConfirmations } from "./lib/steam/confirmations";
 
 contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
@@ -46,6 +47,11 @@ contextBridge.exposeInMainWorld("electron", {
         },
         declineIncomingOffer: function(offerid) {
             return declineOffer(offerid);
+        }
+    },
+    confirmations: {
+        getActiveConfirmations: function() {
+            return getAllConfirmations();
         }
     },
     window: {

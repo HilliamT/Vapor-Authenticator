@@ -55,7 +55,7 @@ export default function BaseScreen(props) {
                                 <IncomingTradeOffers user={props.user}/>
                             </Route>
                             <Route path="/confirmations">
-                                <Confirmations />
+                                <Confirmations user={props.user} />
                             </Route>
                             <Route path="/authenticator">
                                 <AuthSetup user={props.user} updateUser={props.updateUser} />
