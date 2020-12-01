@@ -18,9 +18,9 @@ export default function IncomingTradeOffers(props) {
     }
 
     function renderTradeOffers() {
-        if (tradeOffers.length == 0) return (<div>None.</div>);
+        if (tradeOffers.length == 0) return (<div className="m-4 p-2 rounded bg-white shadow w-full">None.</div>);
         return tradeOffers.map((offer) => {
-            return (<div className="m-2 rounded p-2 border">
+            return (<div className="m-4 p-2 rounded bg-white shadow w-full">
                 {offer.id}
                 <br />
                 {offer.created.toString()}
@@ -35,8 +35,8 @@ export default function IncomingTradeOffers(props) {
         });
     }
 
-    return (<div className="p-4">
-        Your Incoming Trade Offers
+    return (<div className="m-2 flex flex-wrap">
+        <div className="mx-4 mt-2 font-bold text-2xl w-full">Incoming Trades</div>
         {renderTradeOffers()}
     </div>);
 }
