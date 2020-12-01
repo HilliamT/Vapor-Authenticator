@@ -56,22 +56,20 @@ export default function BaseScreen(props) {
                         {renderAccounts()}
                     </div>
                     <div id="MainContent" className="w-full h-full bg-gray-100">
-                        <div className="m-4 p-4 bg-white rounded shadow">
-                            <Switch>
-                                <Route exact path="/">
-                                    <div>Hi</div>
-                                </Route>
-                                <Route path="/offers/incoming">
-                                    <IncomingTradeOffers user={props.user}/>
-                                </Route>
-                                <Route path="/confirmations">
-                                    <Confirmations user={props.user} />
-                                </Route>
-                                <Route path="/authenticator">
-                                    <AuthSetup user={props.user} updateUser={props.updateUser} />
-                                </Route>
-                            </Switch>
-                        </div>
+                        <Switch>
+                            <Route exact path="/">
+                                <div>Hi</div>
+                            </Route>
+                            <Route path="/offers/incoming">
+                                <IncomingTradeOffers user={props.user}/>
+                            </Route>
+                            <Route path="/confirmations">
+                                <Confirmations user={props.user} />
+                            </Route>
+                            <Route path="/authenticator">
+                                <AuthSetup user={props.user} updateUser={props.updateUser} />
+                            </Route>
+                        </Switch>
                     </div>
                 </div>
             </HashRouter>

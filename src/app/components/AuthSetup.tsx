@@ -27,14 +27,14 @@ export default function AuthSetup(props) {
     }, [props.user]);
     
 
-    return (<div className="p-4">
+    return (<div className="m-2">
 
         {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
-        {!props.user.usingVapor && <div> 
+        {!props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow"> 
             {!receivedSMS && <button onClick={async () => { 
                 const response = await setupDesktopAuth();
                 ((response.error == null) ? setReceivedSMS(true) : "");
-            }}>Set up authentication</button>}
+            }}>Setup Authenticator</button>}
 
             {receivedSMS && <div>
                 <div>SMS from Steam sent! Please enter the code you receive to complete the setup.</div>
@@ -51,21 +51,21 @@ export default function AuthSetup(props) {
         </div>}
 
         {/* This user is using Vapor! */}
-        {props.user.usingVapor && <div>
-            <div>You are now using Vapor!</div>
-            <br />
-            <div>
-                Your auth code is:
-                <span className="font-bold">{authCode}</span>
+        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow">
+            <div className="justify-center text-center w-full">
+                <span className="text-gray-400">Your Steam Guard code is</span>
                 <br />
+                <span className="font-bold text-2xl">{authCode}</span>
+            </div>
+            <div className="justify-center text-center w-full">
                 {30 - seconds}s left
             </div>
-            <br />
-            
+        </div>}
+        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow">
             <div onClick={async () => {
                 const response = await revokeDesktopAuth();
                 ((response.error == null) ? props.updateUser() : "");
-            }} className="text-red-600">Revoke</div>
+            }} className="text-red-600">Revoke Steam Authenticator</div>
         </div>}
     </div>)
 }
