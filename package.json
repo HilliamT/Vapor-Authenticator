@@ -17,6 +17,7 @@
     "css-loader": "^5.0.1",
     "electron": "11.0.3",
     "eslint": "^7.14.0",
+    "file-loader": "^6.2.0",
     "postcss": "^8.1.10",
     "postcss-loader": "^4.1.0",
     "style-loader": "^2.0.0",

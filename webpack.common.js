@@ -26,6 +26,9 @@ module.exports = {
         },{
             test: /\.css$/,
             use: ["style-loader", "css-loader", "postcss-loader"]
+        },{
+            test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            use: "file-loader"
         }]
     },
     resolve: { // Resolve any .js or .tsx modules referenced in index.tsx and encountered files

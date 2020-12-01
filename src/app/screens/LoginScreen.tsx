@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Icon from "./vapor.svg";
 
 export default function LoginScreen(props) {
 
@@ -13,17 +14,20 @@ export default function LoginScreen(props) {
 
     return (
         <div className="flex h-screen w-screen">
-            <div className="m-auto">
-                <div className="text-3xl font-semibold">Vapor</div>
-                <span className="text-xl">Desktop Authenticator for Steam</span>
-                <br /><br />
-                <div>
-                    <input id="accountName" name="username" placeholder="Username" onChange={(e) => setAccountName(e.target.value)}/>
-                    <input id="password" name="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+            <div className="m-auto flex flex-wrap content-center w-full justify-center">
+                <div className="w-full flex content-center justify-center items-center">
+                    <img className="w-20 h-20 align-middle" src={Icon} />
+                    <div className="text-3xl font-semibold ml-3">Vapor</div>
+                </div>
+                
+                <span className="text-xs mt-6 text-gray-400">Desktop Authenticator for Steam</span>
+                <div className="w-full content-center justify-center flex mt-10">
+                    <input id="accountName" name="username" placeholder="Username" className="rounded border p-1 mx-1" onChange={(e) => setAccountName(e.target.value)}/>
+                    <input id="password" name="password" placeholder="Password" className="rounded border p-1 mx-1" onChange={(e) => setPassword(e.target.value)}/>
 
                     {Object.keys(loginResponse).length !== 0 && displayResponsePrompt(loginResponse)}
 
-                    {<button className="bg-black text-white rounded px-3 py-1" onClick={async () => {
+                    {<button className="bg-black text-white rounded px-3 text-sm inline" onClick={async () => {
                         const details = {accountName, password, captcha};
                         details[authMethod.method] = authMethod.value;
                         const response = await window["electron"].authenticate.tryLogin(details);
