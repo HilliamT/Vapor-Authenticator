@@ -63,7 +63,7 @@ export default function AuthSetup(props) {
             <div onClick={async () => {
                 const response = await revokeDesktopAuth();
                 ((response.error == null) ? props.updateUser() : "");
-            }}>Revoke</div>
+            }} className="text-red-600">Revoke</div>
         </div>}
     </div>)
 }
