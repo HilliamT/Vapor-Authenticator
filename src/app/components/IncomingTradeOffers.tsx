@@ -4,7 +4,10 @@ export default function IncomingTradeOffers(props) {
     const [tradeOffers, setTradeOffers] = useState([]);
 
     useEffect(() => {
-        updateTradeOffers();
+        const interval = setInterval(() => {
+            updateTradeOffers();
+        }, 10 * 1000);
+        return () => clearInterval(interval);
     }, [props.user]);
 
     async function updateTradeOffers() {
