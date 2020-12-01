@@ -28,8 +28,8 @@ export function getAllConfirmations() {
         getCommunity().then((community) => {
             const identitySecret = getMainAccount().secrets.identity_secret;
             community.getConfirmations(time(), getConfirmationKey(identitySecret, time(), ConfirmationTag.GetAll), async (err, confirmations) => {
-                let _confirmations = [];
-                for (let confirmation of confirmations) {
+                const _confirmations = [];
+                for (const confirmation of confirmations) {
                     _confirmations.push((confirmation.type == ConfirmationType.Trade) ? await populateConfirmation(confirmation, identitySecret) : confirmation);
                 }
                 resolve(_confirmations);
