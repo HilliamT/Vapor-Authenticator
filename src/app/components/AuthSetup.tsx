@@ -11,7 +11,7 @@ export default function AuthSetup(props) {
         {!props.user.usingVapor && <div> 
             {!receivedSMS && <button onClick={async () => { 
                 const response = await setupDesktopAuth();
-                ((response.error == null) ? setReceivedSMS(true) : console.log(response.error));
+                ((response.error == null) ? setReceivedSMS(true) : "");
             }}>Set up authentication</button>}
 
             {receivedSMS && <div>
@@ -31,7 +31,7 @@ export default function AuthSetup(props) {
             <div>You are now using Vapor!</div>
             <div onClick={async () => {
                 const response = await revokeDesktopAuth();
-                ((response.error == null) ? props.updateUser() : console.log(response.error));
+                ((response.error == null) ? props.updateUser() : "");
             }}>Revoke</div>
         </div>}
     </div>)

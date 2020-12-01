@@ -13,6 +13,7 @@
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/no-explicit-any": 0,
-        "@typescript-eslint/no-empty-interface": 0
+        "@typescript-eslint/no-empty-interface": 0,
+        "no-console": 2
     }
 }
