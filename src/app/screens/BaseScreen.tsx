@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AuthSetup from "../components/AuthSetup";
 import IncomingTradeOffers from "../components/IncomingTradeOffers";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
+import Confirmations from "../components/Confirmations";
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -31,7 +32,10 @@ export default function BaseScreen(props) {
                 <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
                     <div className="w-full h-20"></div>
                     <Link className="text-sm" to="/">Home</Link>
+                    <br />
                     <Link className="text-sm" to="/offers/incoming">Trade Offers</Link>
+                    <br />
+                    <Link className="text-sm" to="/confirmations">Confirmations</Link>
                     <br />
                     <Link className="text-sm" to="/authenticator">Authenticator</Link>
                 </div>
@@ -49,6 +53,9 @@ export default function BaseScreen(props) {
                             </Route>
                             <Route path="/offers/incoming">
                                 <IncomingTradeOffers user={props.user}/>
+                            </Route>
+                            <Route path="/confirmations">
+                                <Confirmations />
                             </Route>
                             <Route path="/authenticator">
                                 <AuthSetup user={props.user} updateUser={props.updateUser} />
