@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AuthSetup from "../components/AuthSetup";
 import IncomingTradeOffers from "../components/IncomingTradeOffers";
+import { HashRouter, Switch, Route, Link } from "react-router-dom";
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -24,22 +25,36 @@ export default function BaseScreen(props) {
 
     return (<div>
         <div className="flex w-full">
-
-            {/* Leading Sidebar */}
-            <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
-                <div className="w-full h-20"></div>           
-            </div>
-
-            <div id="Main" className="flex flex-grow flex-wrap">
-                {/* Secondary Sidebar */}
-                <div id="Topbar" className="w-full h-20 bg-indigo-400 flex">
-                    {renderAccounts()}
+        <HashRouter>
+                {/* Leading Sidebar */}
+                <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
+                    <div className="w-full h-20"></div>
+                    <Link className="text-sm" to="/offers/incoming">Trade Offers</Link>
+                    <br />
+                    <Link className="text-sm" to="/authenticator">Authenticator</Link>
                 </div>
-                <div id="MainContent" className="w-full h-full">
-                    <IncomingTradeOffers user={props.user}/>
-                    <AuthSetup user={props.user} updateUser={props.updateUser} />
+
+                <div id="Main" className="flex flex-grow flex-wrap">
+                    {/* Secondary Sidebar */}
+                    <div id="Topbar" className="w-full h-20 bg-indigo-400 flex">
+                        {renderAccounts()}
+                    </div>
+                    <div id="MainContent" className="w-full h-full">
+                        
+                        <Switch>
+                            <Route exact path="/">
+                                <div>Hi</div>
+                            </Route>
+                            <Route path="/offers/incoming">
+                                <IncomingTradeOffers user={props.user}/>
+                            </Route>
+                            <Route path="/authenticator">
+                                <AuthSetup user={props.user} updateUser={props.updateUser} />
+                            </Route>
+                        </Switch>
+                    </div>
                 </div>
-            </div>
+            </HashRouter>
         </div>
     </div>);
 }
