@@ -4,6 +4,7 @@ import BaseScreen from "./screens/BaseScreen";
 
 export default function Index() {
     const [user, setUser] = useState(null);
+    const [addNewAccount, setAddNewAccount] = useState(false);
 
     useEffect(() => {
         updateUser();
@@ -14,7 +15,7 @@ export default function Index() {
     }
 
     return (<div style={{WebkitAppRegion: "drag"}}>
-        {!user && <LoginScreen updateUser={updateUser} />}
-        {user && <BaseScreen user={user} updateUser={updateUser} />}
+        {(!user || addNewAccount) && <LoginScreen addNewAccount={addNewAccount} setAddNewAccount={setAddNewAccount} updateUser={updateUser} />}
+        {user && !addNewAccount && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount}/>}
     </div>)
 }

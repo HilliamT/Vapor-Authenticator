@@ -37,6 +37,7 @@ export default function LoginScreen(props) {
                 <div className="w-full justify-center content-center mt-3 text-center">
                     {Object.keys(loginResponse).length !== 0 && displayResponsePrompt(loginResponse)}
                 </div>
+                {props.addNewAccount && <div className="font-bold mt-3 text-xs cursor-pointer" onClick={() => props.setAddNewAccount(false)}>Back</div>}
             </div>
         </div>
     )

@@ -26,7 +26,9 @@ export default function BaseScreen(props) {
             </div>);
         }
         elems.push(<div className="h-20 w-20 flex cursor-pointer hover:bg-black hover:bg-opacity-20"
-        key="add" onClick={() => {}}>
+        key="add" onClick={() => {
+            props.setAddNewAccount(true);
+        }}>
             <div className="m-auto h-16 w-16 rounded bg-black bg-opacity-10 justify-center content-center flex">
                 <FontAwesomeIcon icon={faPlus} className="m-auto h-16 w-16" color="white" opacity="20%" />
             </div>
