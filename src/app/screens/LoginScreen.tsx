@@ -1,3 +1,5 @@
+import { faSadCry } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Icon from "./vapor.svg";
 
@@ -21,11 +23,9 @@ export default function LoginScreen(props) {
                 </div>
                 
                 <span className="text-xs mt-6 text-gray-400">Desktop Authenticator for Steam</span>
-                <div className="w-full content-center justify-center flex mt-10">
+                <div className="w-full content-center justify-center flex flex-wrap mt-10">
                     <input id="accountName" name="username" placeholder="Username" className="rounded border p-1 mx-1" onChange={(e) => setAccountName(e.target.value)}/>
                     <input id="password" name="password" placeholder="Password" className="rounded border p-1 mx-1" onChange={(e) => setPassword(e.target.value)}/>
-
-                    {Object.keys(loginResponse).length !== 0 && displayResponsePrompt(loginResponse)}
 
                     {<button className="bg-black text-white rounded px-3 text-sm inline" onClick={async () => {
                         const details = {accountName, password, captcha};
@@ -33,6 +33,9 @@ export default function LoginScreen(props) {
                         const response = await window["electron"].authenticate.tryLogin(details);
                         ((Object.keys(response).length == 0) ? props.updateUser() : setLoginResponse(response));
                     }}>Login</button>}
+                </div>
+                <div className="w-full justify-center content-center mt-3 text-center">
+                    {Object.keys(loginResponse).length !== 0 && displayResponsePrompt(loginResponse)}
                 </div>
             </div>
         </div>
