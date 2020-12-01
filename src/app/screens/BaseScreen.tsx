@@ -12,7 +12,7 @@ export default function BaseScreen(props) {
 
     function renderAccounts() {
         const elems = [];
-        for (let account_name in accounts) {
+        for (const account_name in accounts) {
             elems.push(<div className={`h-20 w-20 flex hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
                 key={account_name} onClick={async () => {
                     await window["electron"].setCurrentUser(account_name);
@@ -26,7 +26,7 @@ export default function BaseScreen(props) {
 
     return (<div>
         <div className="flex w-full">
-        <HashRouter>
+            <HashRouter>
                 {/* Leading Sidebar */}
                 <div id="Sidebar" className="w-20 h-screen bg-indigo-500">     
                     <div className="w-full h-20"></div>

@@ -44,6 +44,6 @@ export function getSteamUser(steamid: any = community.steamID): Promise<any> {
 
 export async function getStoredSteamUsers(): Promise<any> {
     const { accounts } = getStore();
-    for (let account_name in accounts) accounts[account_name] = await getSteamUser(new SteamID(accounts[account_name].steamid));
+    for (const account_name in accounts) accounts[account_name] = await getSteamUser(new SteamID(accounts[account_name].steamid));
     return accounts;
 }
