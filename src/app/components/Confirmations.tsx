@@ -5,9 +5,10 @@ export default function Confirmations(props) {
 
     useEffect(() => {
         if (!props.user.usingVapor) return;
-        (async () => {
+        const interval = setInterval(async () => {
             setConfirmations(await window["electron"].confirmations.getActiveConfirmations());
-        })();
+        }, 10 * 1000);
+        return () => clearInterval(interval);
     }, [props.user]);
 
     function renderConfirmations() {
