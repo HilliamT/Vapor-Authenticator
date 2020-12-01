@@ -4,7 +4,7 @@ import IncomingTradeOffers from "../components/IncomingTradeOffers";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckSquare, faHome, faPeopleArrows, faStopwatch } from "@fortawesome/free-solid-svg-icons"; 
+import { faCheckSquare, faHome, faPeopleArrows, faPlus, faStopwatch } from "@fortawesome/free-solid-svg-icons"; 
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
@@ -21,9 +21,16 @@ export default function BaseScreen(props) {
                     await window["electron"].setCurrentUser(account_name);
                     props.updateUser();
                 }}>
-                    <img className="m-auto h-16 w-16 rounded bg-black" src={getAvatarURL(accounts[account_name].avatarHash)}/>
+                    <img className="m-auto h-16 w-16 rounded" src={getAvatarURL(accounts[account_name].avatarHash)}/>
             </div>);
         }
+        elems.push(<div className="h-20 w-20 flex cursor-pointer hover:bg-black hover:bg-opacity-20"
+        key="add" onClick={() => {}}>
+            <div className="m-auto h-16 w-16 rounded bg-black bg-opacity-10 justify-center content-center flex">
+                <FontAwesomeIcon icon={faPlus} className="m-auto h-16 w-16" color="white" opacity="20%" />
+            </div>
+        </div>);
+
         return elems;
     }
 
