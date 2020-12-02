@@ -5,6 +5,15 @@
   <h1>Vapor - Desktop Authenticator for Steam</h1>
 </div>
 
+
+<div align="center">
+<img src="https://badgen.net/github/tag/hilliamt/vapor-authenticator"> <img<img src="https://badgen.net/github/commits/hilliamt/vapor-authenticator">
+<img src="https://visitor-badge.laobi.icu/badge?page_id=hilliamt.vapor-authenticator" alt="visitor badge"/> <img alt="GitHub forks" src="https://img.shields.io/github/forks/HilliamT/vapor-authenticator"></a> <a href="https://github.com/HilliamT/vapor-authenticator/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/HilliamT/vapor-authenticator"></a>
+
+<a href="https://github.com/HilliamT/vapor-authenticator/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/HilliamT/vapor-authenticator"></a> <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/HilliamT/vapor-authenticator/total"> <a href="https://github.com/HilliamT/vapor-authenticator/network"> <img src="https://badgen.net/github/last-commit/hilliamt/vapor-authenticator"> <a href="https://github.com/HilliamT/vapor-authenticator/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/HilliamT/vapor-authenticator"></a>
+</div>
+
+
 <hr>
 
 <!-- TABLE OF CONTENTS -->
@@ -112,7 +121,6 @@ These planned features have been sourced from discussions with users and communi
 * View your in-game inventory for `TF2`, `CS:GO`, `Dota2` and other games `*`
 
 #### `Meta`
-* Repository badges
 * GitHub Wiki
 * GitHub CI/CD Pipeline Setup
 
