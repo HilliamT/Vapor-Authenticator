@@ -10,11 +10,11 @@ export default function Home(props) {
         <div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
             <img src={Logo} className="h-36 w-36" />
         </div>
-        <div className="m-4 mt-2 p-2 rounded bg-white shadow font-bold" onClick={() => {
+        <div className="m-4 mt-2 p-2 rounded bg-white shadow font-bold cursor-pointer" onClick={() => {
             window["electron"].window.loadURL(`https://steamcommunity.com/profiles/${props.user.steamid}`);
-        }}>Steam Profile</div>
+        }}>Profile</div>
 
-        <div className="m-4 mt-2 p-2 rounded bg-white shadow font-bold" onClick={() => {
+        <div className="m-4 mt-2 p-2 rounded bg-white shadow font-bold cursor-pointer" onClick={() => {
             window["electron"].currentUser.playGames((playingGames) ? [] : null);
             setPlayingGames(!playingGames);
         }}>{playingGames ? "Stop Idling" : "Play All Games"}</div>
