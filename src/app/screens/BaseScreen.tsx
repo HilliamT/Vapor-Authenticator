@@ -19,9 +19,9 @@ export default function BaseScreen(props) {
         const elems = [];
         for (const account_name in accounts) {
             elems.push(<div className={`h-20 w-20 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
-                key={account_name} onClick={async () => {
+                key={account_name} onClick={() => {
                     setSwitchingUser(true);
-                    await window["electron"].setCurrentUser(account_name).then(() => {
+                    window["electron"].setCurrentUser(account_name).then(() => {
                         props.updateUser().then(() => setSwitchingUser(false));
                     });
                 }}>
