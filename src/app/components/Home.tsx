@@ -14,8 +14,9 @@ export default function Home(props) {
         }}>Profile</div>
 
         <div className={`m-2 ml-4 p-2 rounded bg-white shadow font-bold cursor-pointer ${playingGames ? "bg-yellow-500" : "bg-green-500"}`} onClick={() => {
-            window["electron"].currentUser.playGames((playingGames) ? [] : null);
-            setPlayingGames(!playingGames);
+            window["electron"].currentUser.playGames((playingGames) ? [] : null).then(() => {
+                setPlayingGames(!playingGames);
+            });
         }}>{playingGames ? "Stop Idling" : "Play All Games"}</div>
     </div>)
 }
