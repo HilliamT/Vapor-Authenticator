@@ -45,7 +45,7 @@ export async function playGames(appids: any[]): Promise<void> {
     return new Promise((resolve) => {
         getCurrentSteamUser().then(user => {
             user.setPersona(SteamUser.EPersonaState.Online);
-            user.gamesPlayed(["Idling with Vapor...", ...(appids != null ? appids : user.getOwnedApps())]);
+            user.gamesPlayed(appids != null ? appids : ["🎮 Idling with Vapor", ...user.getOwnedApps()]);
             return resolve();
         });
     });
