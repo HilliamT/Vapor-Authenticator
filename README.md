@@ -67,7 +67,7 @@ Because the project is open-source utilising APIs offered by Steam, additional f
 * Confirm or cancel confirmations from the app
 
 #### `Gaming`
-* Coming soon
+* Idle all of your games (without having to use Vapor as your main authenticator)
 #### `Market Listing`
 * Coming soon
 #### `Inventory Management`
@@ -113,7 +113,7 @@ These planned features have been sourced from discussions with users and communi
 * Option to auto-accept all (incoming) trade confirmations
 
 #### `Gaming`
-* Play all games on your account (to farm Steam game cards)
+* Adding more soon...
 #### `Market Listings`
 * Option to auto-accept all (incoming) market confirmations
 * Create a Market listing for your item `*`
