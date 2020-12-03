@@ -70,7 +70,7 @@ export default function BaseScreen(props) {
                         <div id="MainContent" className="w-full h-full bg-gray-100">
                             <Switch>
                                 <Route exact path="/">
-                                    <Home />
+                                    <Home user={props.user} />
                                 </Route>
                                 <Route path="/offers/incoming">
                                     <IncomingTradeOffers user={props.user}/>

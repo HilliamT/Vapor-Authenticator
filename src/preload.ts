@@ -70,6 +70,9 @@ contextBridge.exposeInMainWorld("electron", {
         },
         maximize: function() {
             require("electron").remote.getCurrentWindow().maximize();
+        },
+        loadURL: function(url) {
+            require("electron").shell.openExternal(url);
         }
     }
 })
