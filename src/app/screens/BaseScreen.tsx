@@ -9,6 +9,7 @@ import Home from "../components/Home";
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
+    const [switchingUser, setSwitchingUser] = useState(false);
 
     useEffect(() => {
         (async () => setAccounts(await window["electron"].getAllAccounts()))();
@@ -19,8 +20,10 @@ export default function BaseScreen(props) {
         for (const account_name in accounts) {
             elems.push(<div className={`h-20 w-20 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-20 ${(props.user.steamid == accounts[account_name].steamid) ? "bg-black bg-opacity-20" : ""}`}
                 key={account_name} onClick={async () => {
-                    await window["electron"].setCurrentUser(account_name);
-                    props.updateUser();
+                    setSwitchingUser(true);
+                    await window["electron"].setCurrentUser(account_name).then(() => {
+                        props.updateUser().then(() => setSwitchingUser(false));
+                    });
                 }}>
                     <img className="m-auto h-16 w-16 rounded" src={getAvatarURL(accounts[account_name].avatarHash)}/>
             </div>);
@@ -38,6 +41,7 @@ export default function BaseScreen(props) {
     }
 
     return (<div>
+        {switchingUser && <div className="absolute w-screen h-screen bg-black bg-opacity-20 z-10"></div>}
         <div className="w-auto flex">
             <HashRouter>
                 {/* Leading Sidebar */}
