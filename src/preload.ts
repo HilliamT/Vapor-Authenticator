@@ -5,6 +5,7 @@ import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/s
 import { setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
 import { getAllConfirmations } from "./lib/steam/confirmations";
+import { getCurrentSteamUser, playGames } from "./lib/steam/user-instance";
 
 contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
@@ -12,6 +13,7 @@ contextBridge.exposeInMainWorld("electron", {
         setMainAccount(account_name);
         await getCommunity(); // Update community instance
         await getTradeOfferManager(); // Update trade offer manager instance
+        await getCurrentSteamUser();
     },
     getUser: async function() {
         await getCommunity(); // Ensure that the user's details from store are gathered first
@@ -36,6 +38,11 @@ contextBridge.exposeInMainWorld("electron", {
         },
         getAuthCode: function() {
             return generateAuthCode();
+        }
+    },
+    currentUser: {
+        playGames: function(appids: any[]) {
+            return playGames(appids);
         }
     },
     trading: {

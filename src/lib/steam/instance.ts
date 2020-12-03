@@ -1,5 +1,5 @@
 import SteamCommunity from "steamcommunity";
-import { getAccount, getMainAccount, getStore } from "../store/access";
+import { editStore, getAccount, getMainAccount, getStore } from "../store/access";
 import SteamID from "steamid";
 const community = new SteamCommunity();
 
@@ -15,9 +15,16 @@ export function getCommunity(): Promise<any> {
         if (main.oAuthToken && main.cookies && main.steamguard) {
 
             // Perform an oAuth login
-            community.oAuthLogin(main.steamguard, main.oAuthToken, (err) => {
+            community.oAuthLogin(main.steamguard, main.oAuthToken, (err, sessionID, cookies) => {
                 if (err) return reject(err);
-                community.setCookies(main.cookies);
+
+                // Update cookies
+                community.setCookies(cookies);
+                editStore(_store => {
+                    main.cookies = cookies;
+                    _store[_store.main] = main;
+                    return _store;
+                });
                 community.oAuthToken = main.oAuthToken;
                 resolve(community);
             });
