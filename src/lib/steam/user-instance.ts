@@ -1,41 +1,30 @@
 import SteamUser from "steam-user";
 import { getCommunity } from "./instance";
-const user = new SteamUser({enablePicsCache: true});
+const users = {};
 
 export async function getCurrentSteamUser(): Promise<any> {
     return new Promise((resolve) => {
         getCommunity().then(community => {
 
             // If no logged in user set
-            if (community.steamID == null) return resolve(user);
+            if (community.steamID == null) return resolve(new SteamUser({enablePicsCache: true}));
 
             // Use already existing user instance
-            if (user.steamID && user.steamID.accountid == community.steamID.accountid) return resolve(user);
+            if (community.steamID.accountid && users[community.steamID.accountid])
+                return resolve(users[community.steamID.accountid]);
             
             // Gets main account client login token    
             community.getClientLogonToken((err, details) => {
+                const user = new SteamUser({enablePicsCache: true});
                 if (err) return resolve(user);
-                if (user.steamID != null) {
 
-                    // If a user account is already using this SteamUser instance, ensure that we log off first
-                    user.logOff();
-                    user.on("disconnected", () => {
-                        user.logOn(details);
-                        user.on("loggedOn", () => {
-                            user.on("appOwnershipCached", () => {
-                                resolve(user);
-                            });
-                        });
+                user.logOn(details);
+                user.on("loggedOn", () => {
+                    user.on("appOwnershipCached", () => {
+                        users[community.steamID.accountid] = user;
+                        resolve(user);
                     });
-                } else {
-                    user.logOn(details);
-                    user.on("loggedOn", () => {
-                        user.on("appOwnershipCached", () => {
-                            resolve(user);
-                        });
-                    });
-                }
-                
+                });
             });
         });
     });

@@ -10,6 +10,7 @@ import Home from "../components/Home";
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
     const [switchingUser, setSwitchingUser] = useState(false);
+    const [accountsIdling, setAccountsIdling] = useState({});
 
     useEffect(() => {
         (async () => setAccounts(await window["electron"].getAllAccounts()))();
@@ -74,7 +75,7 @@ export default function BaseScreen(props) {
                         <div id="MainContent" className="w-full h-full bg-gray-100">
                             <Switch>
                                 <Route exact path="/">
-                                    <Home user={props.user} />
+                                    <Home user={props.user} accountsIdling={accountsIdling} setAccountsIdling={setAccountsIdling}/>
                                 </Route>
                                 <Route path="/offers/incoming">
                                     <IncomingTradeOffers user={props.user}/>
