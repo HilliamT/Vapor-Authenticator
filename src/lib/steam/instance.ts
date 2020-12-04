@@ -22,7 +22,7 @@ export function getCommunity(): Promise<any> {
                 community.setCookies(cookies);
                 editStore(_store => {
                     main.cookies = cookies;
-                    _store[_store.main] = main;
+                    _store.accounts[_store.main] = main;
                     return _store;
                 });
                 community.oAuthToken = main.oAuthToken;
