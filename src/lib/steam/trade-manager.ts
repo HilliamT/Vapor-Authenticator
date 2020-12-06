@@ -9,7 +9,7 @@ const tradeOfferManager = new TradeOfferManager({
 export function getTradeOfferManager(): Promise<any> {
     return new Promise((resolve) => {
         tradeOfferManager.shutdown();
-        tradeOfferManager.setCookies(getMainAccount().cookies, null, (err) => {
+        tradeOfferManager.setCookies(getMainAccount().cookies || [], null, (err) => {
 
             // Null returned if their account is limited
             if (err) return resolve(null); 
