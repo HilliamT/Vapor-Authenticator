@@ -36,16 +36,16 @@ export default function AuthSetup(props) {
 
         {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
         {!props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full"> 
-            {!receivedSMS && <button onClick={async () => { 
+            {!receivedSMS && <button className="font-bold" onClick={async () => { 
                 const response = await setupDesktopAuth();
                 ((response.error == null) ? setReceivedSMS(true) : "");
             }}>Setup Authenticator</button>}
 
             {receivedSMS && <div>
-                <div>SMS from Steam sent! Please enter the code you receive to complete the setup.</div>
+                <div>SMS from Steam sent! <br/> Please enter the code you receive to complete the setup.</div>
                 <br />
                 <input name="" placeholder="SMS" className="rounded border p-1 m-1" onChange={(e) => setSMSCode(e.target.value)}/>
-                <button onClick={async () => {
+                <button className="p-1 m-1 bg-black text-white rounded" onClick={async () => {
                     const response = await finishDesktopAuth(SMSCode);
                     if (!response.error) {
 
