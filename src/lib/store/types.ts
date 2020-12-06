@@ -31,5 +31,6 @@ export interface AccountStore {
         identity_secret: string;
         secret_1: string;
         status: number;
-    }
+    },
+    password?: string; // Will only be set for if a user doesn't have any steamguard
 }
