@@ -55,10 +55,12 @@ Vapor is a 3rd party open-source authenticator app for Steam, operating as a Des
 Because the project is open-source utilising APIs offered by Steam, additional features can be added in by the community to build an application that not only provides what the current existing mobile authenticator app offers but more to help Steam traders, gamers and players.
 
 ### Features
+
 #### `General`
 * Use the app as your main authenticator!
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
+* Access proxy Steamcommunity.com web sessions as your other accounts
 
 #### `Trading`
 * See all your trades with minimal delay
