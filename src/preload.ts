@@ -1,8 +1,8 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
 import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
-import { setMainAccount } from "./lib/store/access";
+import { getMainAccount, setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
 import { getAllConfirmations } from "./lib/steam/confirmations";
 import { getCurrentSteamUser, playGames } from "./lib/steam/user-instance";
@@ -43,6 +43,12 @@ contextBridge.exposeInMainWorld("electron", {
     currentUser: {
         playGames: function(appids: any[]) {
             return playGames(appids);
+        },
+        openSteam: function(path: string = "/") {
+            ipcRenderer.send("openSteamWindow", {path, cookies: getMainAccount().cookies});
+            return new Promise((resolve) => {
+                ipcRenderer.on("openSteamWindowResponse", (event, arg) => resolve(null));
+            });
         }
     },
     trading: {
