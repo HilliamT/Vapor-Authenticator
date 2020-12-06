@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 
 export default function IncomingTradeOffers(props) {
     const [tradeOffers, setTradeOffers] = useState([]);
-    const [tradeURL, setTradeURL] = useState(""); 
-    const [gettingTradeURL, setGettingTradeURL] = useState(false);
 
     useEffect(() => {
 
@@ -15,15 +13,6 @@ export default function IncomingTradeOffers(props) {
             updateTradeOffers();
         })();
         return () => clearInterval(interval);
-    }, [props.user]);
-
-    useEffect(() => {
-        setGettingTradeURL(true);
-
-        (async () => {
-            setTradeURL(await window["electron"].trading.getTradeURL());
-            setGettingTradeURL(false);
-        })();
     }, [props.user]);
 
     // Perform fetch to get new incoming trade offers
@@ -52,8 +41,7 @@ export default function IncomingTradeOffers(props) {
     }
 
     return (<div className="m-2 flex flex-wrap">
-        <div className="mx-4 font-bold text-2xl w-full">Incoming Trades</div>
-        <div className="m-4 p-2 text-sm w-full bg-white rounded" style={{WebkitAppRegion: "no-drag"}}>{gettingTradeURL ? "Getting your trade url" : `You can receive offers at ${tradeURL}`}</div>
+        <div className="mx-4 font-bold text-2xl w-full">Incoming Trades <span className="text-blue-400 cursor-pointer" onClick={() => window["electron"].currentUser.openSteam(`/profiles/${props.user.steamid}/tradeoffers/`)}>(Proxy)</span></div>
 
         {renderTradeOffers()}
     </div>);
