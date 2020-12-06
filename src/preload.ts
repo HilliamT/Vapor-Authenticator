@@ -44,10 +44,10 @@ contextBridge.exposeInMainWorld("electron", {
         playGames: function(appids: any[]) {
             return playGames(appids);
         },
-        openSteam: function(path: string = "/") {
+        openSteam: function(path = "/") {
             ipcRenderer.send("openSteamWindow", {path, cookies: getMainAccount().cookies});
             return new Promise((resolve) => {
-                ipcRenderer.on("openSteamWindowResponse", (event, arg) => resolve(null));
+                ipcRenderer.on("openSteamWindowResponse", () => resolve(null));
             });
         }
     },

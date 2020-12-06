@@ -5,7 +5,7 @@ export default function atachSteamWindowFunctions(ipcMain) {
         const child = new BrowserWindow({ show: true, width: 1000, height: 800 });
 
         cookies.map((cookie) => {
-            let [name, value] = cookie.split("=");
+            const [name, value] = cookie.split("=");
             child.webContents.session.cookies.set({url: "https://store.steampowered.com/", name, value});
             child.webContents.session.cookies.set({url: "https://steamcommunity.com/", name, value});
         });

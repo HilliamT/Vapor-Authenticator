@@ -3,8 +3,7 @@ import Logo from "../screens/vapor.svg";
 
 export default function Home(props) {
     
-    let [value, setValue] = useState(0); // Dud state to force update after making an account idle / de-idle
-    function rerenderComponent() { setValue(++value) };
+    const [value, setValue] = useState(0); // Dud state to force update after making an account idle / de-idle
 
     const playingGames = props.accountsIdling[props.user.steamid] || false;
 
@@ -24,7 +23,7 @@ export default function Home(props) {
             window["electron"].currentUser.playGames((playingGames) ? [] : null).then(() => {
                 props.accountsIdling[props.user.steamid] = !playingGames;
                 props.setAccountsIdling(props.accountsIdling);
-                rerenderComponent();
+                setValue(value + 1); // Used to rerender component
             });
         }}>{playingGames ? "Stop Idling" : "Play All Games"}</div>
 

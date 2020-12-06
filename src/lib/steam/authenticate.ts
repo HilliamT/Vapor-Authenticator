@@ -45,7 +45,6 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
             if (details.accountName == "" || details.password == "") return resolve({error: SteamLoginErrors.MissingDetails});
 
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
-                console.log(sessionID, cookies, steamguard, oAuthToken);
 
                 // Gracefully handle our error, asking the user to provide more login information
                 if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
@@ -71,8 +70,8 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
 
                 resolve({});
             });
-        };
-    });
+        }
+    })
 }
 
 export async function turnOnTwoFactor(): Promise<any> {
