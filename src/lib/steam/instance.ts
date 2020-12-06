@@ -1,7 +1,7 @@
 import SteamCommunity from "steamcommunity";
 import { editStore, getAccount, getMainAccount, getStore } from "../store/access";
 import SteamID from "steamid";
-const community = new SteamCommunity();
+let community = new SteamCommunity();
 
 export function getCommunity(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -28,6 +28,20 @@ export function getCommunity(): Promise<any> {
                 community.oAuthToken = main.oAuthToken;
                 resolve(community);
             });
+        } else if (main.password) {
+            community.login({accountName: getStore().main, password: main.password}, (err, sessionID, cookies, steamguard, oAuthToken) => {
+                if (err) return reject(err);
+
+                community.setCookies(cookies);
+                editStore(_store => {
+                    main.cookies = cookies;
+                    main.oAuthToken = oAuthToken;
+                    _store.accounts[_store.main] = main;
+                    return _store;
+                });
+                community.oAuthToken = main.oAuthToken;
+                resolve(community);
+            });
         } else {
             // Return a normal userless community instance for now 
             return resolve(community);
@@ -35,16 +49,23 @@ export function getCommunity(): Promise<any> {
     });
 }
 
+export function getNewCommunity() {
+    community = new SteamCommunity();
+    return community;
+}
+
 export function getSteamUser(steamid: any = community.steamID): Promise<any> {
     return new Promise((resolve) => {
         if (steamid == null) return resolve(null);
 
-        community.getSteamUser(steamid, (err, user) => {
-            if (err) return resolve(null);
+        getCommunity().then(community => {
+            community.getSteamUser(steamid, (err, user) => {
+                if (err) return resolve(null);
 
-            // Get user, with any details we may have on them from disk
-            if (steamid.accountid in getStore().id_to_name) return resolve({...user, ...getAccount(getStore().id_to_name[steamid.accountid])});
-            resolve({...user}); 
+                // Get user, with any details we may have on them from disk
+                if (steamid.accountid in getStore().id_to_name) return resolve({...user, ...getAccount(getStore().id_to_name[steamid.accountid])});
+                resolve({...user}); 
+            });
         });
     });
 }
