@@ -30,7 +30,7 @@ export default function AccountScreen(props) {
                 props.setAddNewAccount(true);
                 props.setSwitchingAccounts(false);
             }}>
-                <div className="m-auto h-32 w-32 rounded bg-black bg-opacity-10 justify-center content-center flex">
+                <div className="float-left h-32 w-32 rounded bg-black bg-opacity-10 justify-center content-center flex">
                     <FontAwesomeIcon icon={faPlus} className="m-auto h-16 w-16" color="white" opacity="20%" />
                 </div>
             </div>);
