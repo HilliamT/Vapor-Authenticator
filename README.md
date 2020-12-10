@@ -66,20 +66,19 @@ Because the project is open-source utilising APIs offered by Steam, additional f
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
 * Access proxy Steamcommunity.com web sessions as your other accounts
+* View and switch between all of your accounts
 * View your Steam profile in a jiffy
 
 #### `Trading`
-* See all your trades via web session with minimal delay
+* See all your trades via web session
 * View your trade confirmations
 * Confirm or cancel confirmations from the app
 
 #### `Gaming`
 * Idle all of your games at the click of a button
 * Send and receive messages to your friends in an instant via Steam Web Chat as any saved account
-#### `Market Listing`
-* Coming soon
 #### `Inventory Management`
-* Coming soon
+* View your in-game inventory for `TF2`, `CS:GO`, `Dota2` and other games at the click of a button
 
 ### Technicals
 Vapor is developed in `TypeScript` using `ElectronJS` to produce the application for desktop. `ReactJS` and `TailwindCSS` has been integrated into the project to make frontend development easier.
@@ -105,24 +104,23 @@ This will install all necessary dependencies, including dev-dependencies, to all
 
 These planned features have been sourced from discussions with users and communities. Some may also be features that are missing from Vapor that exist in the current version of the Steam Mobile Authenticator app.
 
-`*` - Provided by the Steam Mobile Authenticator App
+`*` - Provided by the existing Steam Mobile Authenticator App
 #### `General`
 * Export your secrets for other applications e.g trading bots
 * Display all new Steam account notifications e.g gifts, new items `*`
+* Remove logged accounts from the authenticator
 
 #### `Social`
 * Adding more soon...
 #### `Trading`
 * Notify you of new trades via a desktop notification
 * Option to auto-accept all (incoming) trade confirmations
+* Option to auto-accept all (incoming) market confirmations
 
 #### `Gaming`
 * Adding more soon...
-#### `Market Listings`
-* Option to auto-accept all (incoming) market confirmations
-* Create a Market listing for your item `*`
 #### `Inventory Management`
-* View your in-game inventory for `TF2`, `CS:GO`, `Dota2` and other games `*`
+* Adding more soon...
 
 #### `Meta`
 * GitHub Wiki
