@@ -68,11 +68,10 @@ export default function AuthSetup(props) {
                 {30 - seconds}s left
             </div>
         </div>}
-        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-white shadow w-full">
-            <div onClick={async () => {
+        {props.user.usingVapor && <div className="m-4 p-4 rounded bg-red-600 shadow text-white block" onClick={async () => {
                 const response = await revokeDesktopAuth();
                 ((response.error == null) ? props.updateUser() : "");
-            }} className="text-red-600">Revoke Steam Authenticator</div>
+            }}>Revoke Steam Authenticator
         </div>}
     </div>)
 }

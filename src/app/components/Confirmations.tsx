@@ -19,7 +19,7 @@ export default function Confirmations(props) {
 
     function renderConfirmations() {
         if (!props.user.usingVapor)
-            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
+            return (<div className="m-4 mt-2 p-4 rounded bg-yellow-300 shadow flex w-full justify-center font-bold">
                 You're not using Vapor as your authenticator - can't get your confirmations
             </div>);
         if (confirmations.length == 0)
