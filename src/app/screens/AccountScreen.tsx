@@ -38,7 +38,7 @@ export default function AccountScreen(props) {
         return elems;
     }
 
-    return (<div className="fixed h-screen w-screen z-10">
+    return (<div className="fixed h-screen w-screen z-10" style={{WebkitAppRegion: "drag"}}>
         {switchingUser && <div className="absolute w-full h-full bg-black bg-opacity-20 z-20"></div>}
         <div style={{backgroundColor: "#0e0d1c"}} className="p-20 justify-center items-start h-screen w-screen">
             

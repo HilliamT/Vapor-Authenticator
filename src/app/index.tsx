@@ -19,7 +19,7 @@ export default function Index() {
         setUser(await window["electron"].getUser());
     }
 
-    return (<div style={{WebkitAppRegion: "drag"}}>
+    return (<div>
         {user && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} className="z-0" />}
 
         {user && switchingAccounts && !addNewAccount && <AccountScreen user={user} updateUser={updateUser} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} className="z-10" />}

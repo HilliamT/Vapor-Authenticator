@@ -14,7 +14,7 @@ export default function BaseScreen(props) {
     const [accountsIdling, setAccountsIdling] = useState({});
     const [currentPage, setCurrentPage] = useState(CurrentPage.Home);
 
-    return (<div className="fixed z-0 w-screen h-screen flex">
+    return (<div className="fixed z-0 w-screen h-screen flex" style={{WebkitAppRegion: "drag"}}>
         <HashRouter>
             {/* Leading Sidebar */}
             <div id="Sidebar" className="w-40 h-screen flex flex-wrap content-start flex-none" style={{backgroundColor: "#111225"}}>
