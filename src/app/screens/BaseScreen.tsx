@@ -4,13 +4,20 @@ import IncomingTradeOffers from "../components/IncomingTradeOffers";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckSquare, faHome, faPeopleArrows, faPlus, faStopwatch } from "@fortawesome/free-solid-svg-icons"; 
+import { faPlus } from "@fortawesome/free-solid-svg-icons"; 
 import Home from "../components/Home";
+
+const CurrentPage = {
+    Home: "Home",
+    Confirmations: "Confirmations",
+    Authenticator: "Authenticator"
+}
 
 export default function BaseScreen(props) {
     const [accounts, setAccounts] = useState({});
     const [switchingUser, setSwitchingUser] = useState(false);
     const [accountsIdling, setAccountsIdling] = useState({});
+    const [currentPage, setCurrentPage] = useState(CurrentPage.Home);
 
     useEffect(() => {
         (async () => setAccounts(await window["electron"].getAllAccounts()))();
@@ -46,33 +53,47 @@ export default function BaseScreen(props) {
         <div className="w-auto flex">
             <HashRouter>
                 {/* Leading Sidebar */}
-                <div id="Sidebar" className="w-20 h-screen bg-indigo-500 flex flex-wrap content-start flex-none">
+                <div id="Sidebar" className="w-40 h-screen flex flex-wrap content-start flex-none" style={{backgroundColor: "#111225"}}>
                     <div className="w-full h-20"></div>
-                    <Link className="text-sm w-full text-center h-20 group" to="/">
-                        <FontAwesomeIcon icon={faHome} size="2x" className="opacity-30 group-hover:opacity-80"/>
+                    <Link className="text-sm w-full group" to="/">
+                        <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.Home == currentPage ? "text-white" : "text-gray-400"} hover:text-white`} onClick={() => {
+                            setCurrentPage(CurrentPage.Home);
+                        }}>Home</div>
                     </Link>
                     <br />
-                    <Link className="text-sm w-full text-center h-20 group" to="/offers/incoming">
-                        <FontAwesomeIcon icon={faPeopleArrows} size="2x" className="opacity-30 group-hover:opacity-80" />
+                    <div className="text-sm w-full group cursor-pointer" onClick={() => window["electron"].window.loadURL(`https://steamcommunity.com/profiles/${props.user.steamid}`)}>
+                        <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Profile</div>
+                    </div>
+                    <br />
+                    <div className="text-sm w-full group cursor-pointer" onClick={() => window["electron"].currentUser.openSteam(`/chat/`)}>
+                        <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Chat</div>
+                    </div>
+                    <br />
+                    <div className="text-sm w-full group cursor-pointer" onClick={() => window["electron"].currentUser.openSteam(`/profiles/${props.user.steamid}/tradeoffers/`)}>
+                        <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Trades</div>
+                    </div>
+                    <br />
+                    <Link className="text-sm w-full group" to="/confirmations">
+                        <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.Confirmations == currentPage ? "text-white" : "text-gray-400"} hover:text-white`} onClick={() => {
+                            setCurrentPage(CurrentPage.Confirmations);
+                        }}>Confirmations</div>
                     </Link>
                     <br />
-                    <Link className="text-sm w-full text-center h-20 group" to="/confirmations">
-                        <FontAwesomeIcon icon={faCheckSquare} size="2x" className="opacity-30 group-hover:opacity-80" />
-                        </Link>
-                    <br />
-                    <Link className="text-sm w-full text-center h-20 group" to="/authenticator">
-                        <FontAwesomeIcon icon={faStopwatch} size="2x" className="opacity-30 group-hover:opacity-60" />
+                    <Link className="text-sm w-full group" to="/authenticator">
+                        <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.Authenticator == currentPage ? "text-white" : "text-gray-400"} hover:text-white`} onClick={() => {
+                            setCurrentPage(CurrentPage.Authenticator);
+                        }}>Authenticator</div>
                     </Link>
                 </div>
 
-                <div id="Main" className="w-full overflow-hidden h-screen flex flex-wrap">
+                <div id="Main" className="w-full overflow-hidden h-screen flex flex-wrap" style={{backgroundColor: "#0e0d1c"}}>
                         {/* Secondary Sidebar */}
-                        <div id="Topbar" className="w-full h-20 bg-indigo-400 flex overflow-x-scroll whitespace-nowrap">
+                        <div id="Topbar" className="w-full h-20 flex overflow-x-scroll whitespace-nowrap" style={{backgroundColor: "rgba(255, 255, 255, 0.05)"}}>
                             {renderAccounts()}
                         </div>
 
                         {/* Main body of the Desktop app, acting as SPA with components being swapped out inside here */}
-                        <div id="MainContent" className="w-full h-full bg-gray-100">
+                        <div id="MainContent" className="w-full h-full">
                             <Switch>
                                 <Route exact path="/">
                                     <Home user={props.user} accountsIdling={accountsIdling} setAccountsIdling={setAccountsIdling}/>
