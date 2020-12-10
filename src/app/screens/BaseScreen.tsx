@@ -54,7 +54,16 @@ export default function BaseScreen(props) {
             <HashRouter>
                 {/* Leading Sidebar */}
                 <div id="Sidebar" className="w-40 h-screen flex flex-wrap content-start flex-none" style={{backgroundColor: "#111225"}}>
-                    <div className="w-full h-20"></div>
+                    <div className="w-full h-10"></div>
+                    <div className="w-full h-20">
+                        <div className="flex p-3 justify-center items-center">
+                            <img className="h-12 w-12 rounded-full" src={getAvatarURL(props.user.avatarHash)}/>
+                            <div className="text-white font-bold text-sm ml-4 align-middle">
+                                {props.user.name}<br />
+                                <span className="font-thin text-xs">{props.user.stateMessage}</span>
+                            </div>
+                        </div>
+                    </div>
                     <Link className="text-sm w-full group" to="/">
                         <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.Home == currentPage ? "text-white" : "text-gray-400"} hover:text-white`} onClick={() => {
                             setCurrentPage(CurrentPage.Home);
