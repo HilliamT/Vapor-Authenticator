@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../screens/vapor.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGamepad } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home(props) {
     
@@ -14,12 +16,15 @@ export default function Home(props) {
         </div>
 
         {/* Idle games button */}
-        <div className={`m-2 ml-4 p-2 rounded bg-white font-bold cursor-pointer ${playingGames ? "bg-yellow-500" : "bg-green-500"}`} onClick={() => {
+        <div className={`m-2 ml-4 p-12 rounded bg-white font-bold cursor-pointer relative overflow-hidden ${playingGames ? "bg-yellow-500" : "bg-green-500"}`} onClick={() => {
             window["electron"].currentUser.playGames((playingGames) ? [] : null).then(() => {
                 props.accountsIdling[props.user.steamid] = !playingGames;
                 props.setAccountsIdling(props.accountsIdling);
                 setValue(value + 1); // Used to rerender component
             });
-        }}>{playingGames ? "Stop Idling" : "Play All Games"}</div>
+        }}>
+            <FontAwesomeIcon icon={faGamepad} transform={{ rotate: 42 }} size="10x" className="absolute bottom-0 right-0 opacity-20" />
+            {playingGames ? "Stop Idling" : "Play All Games"}
+        </div>        
     </div>)
 }
