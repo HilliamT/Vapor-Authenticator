@@ -65,9 +65,10 @@ Because the project is open-source utilising APIs offered by Steam, additional f
 * Use the app as your main device authenticator!
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
-* Access proxy Steamcommunity.com web sessions as your other accounts
 * View and switch between all of your accounts
+* Access proxy Steamcommunity.com web sessions as your other accounts
 * View your Steam profile in a jiffy
+* Login to the app via OAuth using just a previous username
 
 #### `Trading`
 * See all your trades via web session
