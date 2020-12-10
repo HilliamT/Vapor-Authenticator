@@ -51,7 +51,7 @@
 
 <!-- About the Project -->
 ## About
-<img src="/Vapor.gif?raw=true" />
+<img src="https://i.imgur.com/Rkt6xOb.png" />
 
 Vapor is a 3rd party open-source authenticator app for Steam, operating as a Desktop application to allow for players who don't have access to a smartphone to install the [Steam Mobile Authenticator](https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&hl=en_GB&gl=US) to be able to use Steam and trade video game items on the platform with minimal limitations.
 
@@ -60,8 +60,12 @@ You don't have to use the app as your authenticator! There are several features 
 Because the project is open-source utilising APIs offered by Steam, additional features can be added in by the community to build an application that not only provides what the current existing mobile authenticator app offers but more to help Steam traders, gamers and players.
 
 ### Features
-
 #### `General`
+
+<div style="text-align: center;">
+  <img src="/assets/VaporGeneralDemo.gif" text-align="center">
+</div>
+
 * Use the app as your main device authenticator!
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
@@ -69,16 +73,30 @@ Because the project is open-source utilising APIs offered by Steam, additional f
 * Access proxy Steamcommunity.com web sessions as your other accounts
 * View your Steam profile in a jiffy
 * Login to the app via OAuth using just a previous username
-
 #### `Trading`
+
+<div style="text-align: center;">
+  <img src="/assets/VaporTradeDemo.gif" text-align="center">
+</div>
+
 * See all your trades via web session
 * View your trade confirmations
 * Confirm or cancel confirmations from the app
 
 #### `Gaming`
+
+<div style="text-align: center;">
+  <img src="/assets/VaporIdleDemo.gif" text-align="center">
+</div>
+
 * Idle all of your games at the click of a button
 * Send and receive messages to your friends in an instant via Steam Web Chat as any saved account
 #### `Inventory Management`
+
+<div style="text-align: center;">
+  <img src="/assets/VaporInventoryDemo.gif" text-align="center">
+</div>
+
 * View your in-game inventory for `TF2`, `CS:GO`, `Dota2` and other games at the click of a button
 
 ### Technicals
@@ -143,6 +161,7 @@ You will need `node` and `npm` to run this project as a developer and build it f
 
 The project repository will follow this structure when you are working with it.
 
+- `assets/` - Any visual assets needed for this `README.md` document
 - `build/` - Built files from performing `npm run build` or any command that uses it.
 - `node_modules/` - Folder to host your installed node modules for this repository. This is generated after `npm install`.
 - `src/` - Source files for this project. The majority of the code you should be making edits to should be inside here.
@@ -167,7 +186,6 @@ The project repository will follow this structure when you are working with it.
 - `tailwind.config.js` - `TailwindCSS` configuration file
 - `tailwind.css` - File denoting which `TailwindCSS` directives are being used
 - `tsconfig.json` - A build configuration file to let the `TypeScript` Compiler know how to convert our `TypeScript` files ending in `*.ts` into plain `JavaScript` `*.js` files.
-- `Vapor.gif` - Example gif demo of Vapor. Purely for the `README.me`
 - `webpack.common.js` - A build configuration file to let the Webpack Babel Compiler know how to convert our `TypeScript-React-TailwindCSS` `src/` files into an optimised `build/` file of plain old `JS`, `HTML` and `CSS`.
 
 ## Contact
