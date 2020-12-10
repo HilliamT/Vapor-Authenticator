@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LoginScreen from "./screens/LoginScreen";
 import BaseScreen from "./screens/BaseScreen";
+import AccountScreen from "./screens/AccountScreen";
 
 // Root component of Vapor
 export default function Index() {
@@ -8,6 +9,7 @@ export default function Index() {
 
     // addNewAccount == true if logged-in user is adding new account
     const [addNewAccount, setAddNewAccount] = useState(false);
+    const [switchingAccounts, setSwitchingAccounts] = useState(false);
 
     useEffect(() => {
         updateUser();
@@ -18,7 +20,8 @@ export default function Index() {
     }
 
     return (<div style={{WebkitAppRegion: "drag"}}>
-        {(!user || addNewAccount) && <LoginScreen addNewAccount={addNewAccount} setAddNewAccount={setAddNewAccount} updateUser={updateUser} />}
-        {user && !addNewAccount && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount}/>}
+        {user && switchingAccounts && !addNewAccount && <AccountScreen user={user} updateUser={updateUser} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} />}
+        {(!user || addNewAccount) && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setAddNewAccount={setAddNewAccount} updateUser={updateUser} />}
+        {user && !switchingAccounts && !addNewAccount && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} />}
     </div>)
 }
