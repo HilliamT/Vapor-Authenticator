@@ -38,8 +38,8 @@ export default function AccountScreen(props) {
         return elems;
     }
 
-    return (<div className="fixed h-screen w-screen z-20">
-        {switchingUser && <div className="absolute w-full h-full bg-black bg-opacity-20 z-10"></div>}
+    return (<div className="fixed h-screen w-screen z-10">
+        {switchingUser && <div className="absolute w-full h-full bg-black bg-opacity-20 z-20"></div>}
         <div style={{backgroundColor: "#0e0d1c"}} className="p-20 justify-center items-start h-screen w-screen">
             
             <div id="ScreenTitle" className="text-4xl font-bold text-white my-3">Which account<br/> will you choose today?</div>

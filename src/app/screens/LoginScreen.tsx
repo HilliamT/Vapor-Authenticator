@@ -16,8 +16,7 @@ export default function LoginScreen(props) {
     // Login response
     const [loginResponse, setLoginResponse] = useState({});
 
-    return (
-        <div className="flex h-screen w-screen" style={{backgroundColor: "#111225"}}>
+    return (<div className="flex h-screen w-screen fixed z-20" style={{backgroundColor: "#111225"}}>
             <div className="m-auto flex flex-wrap content-center w-full justify-center">
                 <div className="w-full flex content-center justify-center items-center">
                     <img className="w-20 h-20 align-middle" src={Icon} />
