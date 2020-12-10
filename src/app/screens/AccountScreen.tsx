@@ -13,7 +13,7 @@ export default function AccountScreen(props) {
     function renderAccounts() {
         const elems = [];
         for (const account_name in accounts) {
-            elems.push(<div className={`h-32 w-32 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-20 m-3`}
+            elems.push(<div className={`h-32 w-32 cursor-pointer hover:bg-black hover:bg-opacity-20 m-3 inline-block`}
                 key={account_name} onClick={() => {
                     setSwitchingUser(true);
                     window["electron"].setCurrentUser(account_name).then(() => {
@@ -25,7 +25,7 @@ export default function AccountScreen(props) {
             </div>);
         }
 
-        elems.push(<div className="h-32 w-32 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-50 m-3"
+        elems.push(<div className="h-32 w-32 cursor-pointer hover:bg-black hover:bg-opacity-50 m-3 inline-block"
             key="add" onClick={() => {
                 props.setAddNewAccount(true);
                 props.setSwitchingAccounts(false);
@@ -38,13 +38,13 @@ export default function AccountScreen(props) {
         return elems;
     }
 
-    return (<div>
+    return (<div className="fixed h-screen w-screen z-20">
         {switchingUser && <div className="absolute w-full h-full bg-black bg-opacity-20 z-10"></div>}
         <div style={{backgroundColor: "#0e0d1c"}} className="p-12 justify-center items-start h-screen w-screen">
             
-            <div id="ScreenTitle" className="text-4xl font-bold text-white my-3">Which account will you choose today?</div>
+            <div id="ScreenTitle" className="text-6xl font-bold text-white my-3">Which account<br/> will you choose today?</div>
             <br />
-            <div id="ScreenContents" className="flex flex-wrap">
+            <div id="ScreenContents" className="overflow-y-auto h-full">
                 {renderAccounts()}
             </div>
         </div>
