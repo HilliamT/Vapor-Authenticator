@@ -39,7 +39,7 @@ export default function Confirmations(props) {
     }
 
     return (<div className="m-2 flex flex-wrap">
-        <div className="mx-4 font-bold text-2xl w-full">Confirmations</div>
+        <div className="mx-4 font-bold text-2xl w-full text-white">Confirmations</div>
         {renderConfirmations()}
     </div>);
 }

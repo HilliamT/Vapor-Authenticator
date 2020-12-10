@@ -32,7 +32,7 @@ export default function AuthSetup(props) {
     
 
     return (<div className="m-2 flex flex-wrap">
-        <div className="mx-4 font-bold text-2xl w-full">Authenticator</div>
+        <div className="mx-4 font-bold text-2xl w-full text-white">Authenticator</div>
 
         {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
         {!props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full"> 

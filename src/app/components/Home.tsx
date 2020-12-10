@@ -8,7 +8,7 @@ export default function Home(props) {
     const playingGames = props.accountsIdling[props.user.steamid] || false;
 
     return (<div className="m-2 flex flex-wrap">
-        <div className="mx-4 font-bold text-2xl w-full">Home</div>
+        <div className="mx-4 font-bold text-2xl w-full text-white">Home</div>
         <div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
             <img src={Logo} className="h-36 w-36" />
         </div>
