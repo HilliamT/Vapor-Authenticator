@@ -37,7 +37,8 @@
     "watch:react": "webpack --config webpack.common.js --watch",
     "watch": "concurrently \"npm run watch:react\" \"npm run bootup\"",
     "bootup": "electron ./build/main.js",
-    "start": "npm run build && npm run bootup"
+    "start": "npm run build && npm run bootup",
+    "pre-commit": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",

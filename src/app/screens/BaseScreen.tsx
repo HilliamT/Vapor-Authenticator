@@ -73,9 +73,6 @@ export default function BaseScreen(props) {
                                 <Route exact path="/">
                                     <Home user={props.user} accountsIdling={accountsIdling} setAccountsIdling={setAccountsIdling}/>
                                 </Route>
-                                <Route path="/offers/incoming">
-                                    <IncomingTradeOffers user={props.user}/>
-                                </Route>
                                 <Route path="/confirmations">
                                     <Confirmations user={props.user} />
                                 </Route>
