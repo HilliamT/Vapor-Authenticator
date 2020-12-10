@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import AuthSetup from "../components/AuthSetup";
-import IncomingTradeOffers from "../components/IncomingTradeOffers";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
 import Home from "../components/Home";
