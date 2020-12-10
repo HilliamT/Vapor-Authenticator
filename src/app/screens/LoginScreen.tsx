@@ -17,14 +17,14 @@ export default function LoginScreen(props) {
     const [loginResponse, setLoginResponse] = useState({});
 
     return (
-        <div className="flex h-screen w-screen">
+        <div className="flex h-screen w-screen" style={{backgroundColor: "#111225"}}>
             <div className="m-auto flex flex-wrap content-center w-full justify-center">
                 <div className="w-full flex content-center justify-center items-center">
                     <img className="w-20 h-20 align-middle" src={Icon} />
-                    <div className="text-3xl font-semibold ml-3">Vapor</div>
+                    <div className="text-3xl font-semibold ml-3 text-white">Vapor</div>
                 </div>
                 
-                <span className="text-xs mt-6 text-gray-400">Desktop Authenticator for Steam</span>
+                <span className="text-xs mt-6 text-gray-100">Desktop Authenticator for Steam</span>
 
                 {/* Login form */}
                 <div className="w-full content-center justify-center flex flex-wrap mt-10">
@@ -49,7 +49,7 @@ export default function LoginScreen(props) {
                 </div>
 
                 {/* If a logged-in user is just adding a new account to their authenticator, they can redirect back if they want to stop adding new account */}
-                {props.addNewAccount && <div className="font-bold mt-3 text-xs cursor-pointer" onClick={() => props.setAddNewAccount(false)}>Back</div>}
+                {props.addNewAccount && <div className="font-bold mt-3 text-xs cursor-pointer text-white" onClick={() => props.setAddNewAccount(false)}>Back</div>}
             </div>
         </div>
     )
