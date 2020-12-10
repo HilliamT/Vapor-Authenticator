@@ -21,7 +21,5 @@ export default function Home(props) {
                 setValue(value + 1); // Used to rerender component
             });
         }}>{playingGames ? "Stop Idling" : "Play All Games"}</div>
-
-        <div className="m-2 ml-4 p-2 rounded bg-white shadow font-bold cursor-pointer" onClick={() => window["electron"].currentUser.openSteam()}>Proxy Window</div>
     </div>)
 }
