@@ -46,6 +46,10 @@ export default function BaseScreen(props) {
                     <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Trades</div>
                 </div>
                 <br />
+                <div className="text-sm w-full cursor-pointer" onClick={() => window["electron"].currentUser.openSteam(`/profiles/${props.user.steamid}/inventory/`)}>
+                    <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Inventory</div>
+                </div>
+                <br />
                 <Link className="text-sm w-full cursor-pointer" to="/confirmations">
                     <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.Confirmations == currentPage ? "text-white" : "text-gray-400"} hover:text-white`} onClick={() => {
                         setCurrentPage(CurrentPage.Confirmations);
