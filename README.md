@@ -55,24 +55,27 @@
 
 Vapor is a 3rd party open-source authenticator app for Steam, operating as a Desktop application to allow for players who don't have access to a smartphone to install the [Steam Mobile Authenticator](https://play.google.com/store/apps/details?id=com.valvesoftware.android.steam.community&hl=en_GB&gl=US) to be able to use Steam and trade video game items on the platform with minimal limitations.
 
+You don't have to use the app as your authenticator! There are several features that can be utilised without replacing your old mobile or device authenticator, including accessing web sessions logged in as any of your accounts at the click of a button.
+
 Because the project is open-source utilising APIs offered by Steam, additional features can be added in by the community to build an application that not only provides what the current existing mobile authenticator app offers but more to help Steam traders, gamers and players.
 
 ### Features
 
 #### `General`
-* Use the app as your main authenticator!
+* Use the app as your main device authenticator!
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
 * Access proxy Steamcommunity.com web sessions as your other accounts
+* View your Steam profile in a jiffy
 
 #### `Trading`
-* See all your trades with minimal delay
-* Accept or decline your trades from the app
+* See all your trades via web session with minimal delay
 * View your trade confirmations
 * Confirm or cancel confirmations from the app
 
 #### `Gaming`
-* Idle all of your games (without having to use Vapor as your main authenticator)
+* Idle all of your games at the click of a button
+* Send and receive messages to your friends in an instant via Steam Web Chat as any saved account
 #### `Market Listing`
 * Coming soon
 #### `Inventory Management`
@@ -108,13 +111,9 @@ These planned features have been sourced from discussions with users and communi
 * Display all new Steam account notifications e.g gifts, new items `*`
 
 #### `Social`
-* View your friends `*`
-* Send and receive messages to your friends `*`
-* View your Steam profile `*`
-* View any Steam profile `*`
+* Adding more soon...
 #### `Trading`
 * Notify you of new trades via a desktop notification
-* View the details of an incoming trade offer `*`
 * Option to auto-accept all (incoming) trade confirmations
 
 #### `Gaming`
