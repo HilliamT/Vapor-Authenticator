@@ -25,12 +25,12 @@ export default function AccountScreen(props) {
             </div>);
         }
 
-        elems.push(<div className="h-20 w-20 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-20"
+        elems.push(<div className="h-32 w-32 flex-none flex cursor-pointer hover:bg-black hover:bg-opacity-50 m-3"
             key="add" onClick={() => {
                 props.setAddNewAccount(true);
                 props.setSwitchingAccounts(false);
             }}>
-                <div className="m-auto h-16 w-16 rounded bg-black bg-opacity-10 justify-center content-center flex">
+                <div className="m-auto h-32 w-32 rounded bg-black bg-opacity-10 justify-center content-center flex">
                     <FontAwesomeIcon icon={faPlus} className="m-auto h-16 w-16" color="white" opacity="20%" />
                 </div>
             </div>);
