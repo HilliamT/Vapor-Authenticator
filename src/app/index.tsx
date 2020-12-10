@@ -22,6 +22,6 @@ export default function Index() {
     return (<div style={{WebkitAppRegion: "drag"}}>
         {user && switchingAccounts && !addNewAccount && <AccountScreen user={user} updateUser={updateUser} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} />}
         {(!user || addNewAccount) && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setAddNewAccount={setAddNewAccount} updateUser={updateUser} />}
-        {user && !switchingAccounts && !addNewAccount && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} />}
+        {user && !addNewAccount && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} />}
     </div>)
 }

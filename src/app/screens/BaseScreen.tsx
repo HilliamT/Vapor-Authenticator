@@ -5,10 +5,9 @@ import Confirmations from "../components/Confirmations";
 import Home from "../components/Home";
 
 const CurrentPage = {
-    Home: "Home",
-    Confirmations: "Confirmations",
-    Authenticator: "Authenticator",
-    SwitchingAccounts: "SwitchingAccounts"
+    Home: "/",
+    Confirmations: "/confirmations",
+    Authenticator: "/authenticator"
 }
 
 export default function BaseScreen(props) {
@@ -60,8 +59,8 @@ export default function BaseScreen(props) {
                         }}>Authenticator</div>
                     </Link>
                     <br />
-                    <div className="text-sm w-full cursor-pointer" onClick={() => { props.setSwitchingAccounts(true); setCurrentPage(CurrentPage.SwitchingAccounts); }}>
-                        <div className={`font-bold text-md p-2 pl-4 ${CurrentPage.SwitchingAccounts == currentPage ? "text-white" : "text-gray-400"} hover:text-white`}>Switch Accounts</div>
+                    <div className="text-sm w-full cursor-pointer" onClick={() => { props.setSwitchingAccounts(true) }}>
+                        <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Switch Accounts</div>
                     </div>
                     <br />
                 </div>
