@@ -9,12 +9,12 @@ export default function Home(props) {
 
     return (<div className="m-2 flex flex-wrap">
         <div className="mx-4 font-bold text-2xl w-full text-white">Home</div>
-        <div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
+        <div className="m-4 mt-2 p-4 flex w-full justify-center border-b border-white">
             <img src={Logo} className="h-36 w-36" />
         </div>
 
         {/* Idle games button */}
-        <div className={`m-2 ml-4 p-2 rounded bg-white shadow font-bold cursor-pointer ${playingGames ? "bg-yellow-500" : "bg-green-500"}`} onClick={() => {
+        <div className={`m-2 ml-4 p-2 rounded bg-white font-bold cursor-pointer ${playingGames ? "bg-yellow-500" : "bg-green-500"}`} onClick={() => {
             window["electron"].currentUser.playGames((playingGames) ? [] : null).then(() => {
                 props.accountsIdling[props.user.steamid] = !playingGames;
                 props.setAccountsIdling(props.accountsIdling);
