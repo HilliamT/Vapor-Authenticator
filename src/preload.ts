@@ -52,6 +52,7 @@ contextBridge.exposeInMainWorld("electron", {
         }
     },
     trading: {
+        // TODO: Remove as we just have the user access their trades via proxy web window rather than showing them on app
         getIncomingTradeOffers: function() {
             return getActiveIncomingOffers();
         },

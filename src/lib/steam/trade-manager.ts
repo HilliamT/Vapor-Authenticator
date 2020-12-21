@@ -18,6 +18,7 @@ export function getTradeOfferManager(): Promise<any> {
     });
 }
 
+// TODO: Remove as we just have the user access their trades via proxy web window rather than showing them on app
 export function getActiveIncomingOffers(): Promise<any[]> {
     return new Promise((resolve) => {
         getTradeOfferManager().then((manager) => {
@@ -44,6 +45,7 @@ export function getActiveIncomingOffers(): Promise<any[]> {
     });
 }
 
+// TODO: Remove as we just have the user access their trades via proxy web window rather than showing them on app
 export function acceptOffer(offerid: string): Promise<string> {
     return new Promise((resolve, reject) => {
         getTradeOfferManager().then((manager) => {
@@ -59,6 +61,7 @@ export function acceptOffer(offerid: string): Promise<string> {
     });
 }
 
+// TODO: Remove as we just have the user access their trades via proxy web window rather than showing them on app
 export function declineOffer(offerid: string): Promise<void> {
     return new Promise((resolve, reject) => {
         getTradeOfferManager().then((manager) => {

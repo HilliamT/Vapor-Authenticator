@@ -1,6 +1,10 @@
 import store from "./account";
 import { AccountStore, VaporCache, VaporSettings } from "./types";
 
+/**
+ * Helper functions for saving and retrieving on-disk user information
+ */
+
 export function getStore(): VaporCache  {
     return (store.get("vapor") as VaporCache);
 }

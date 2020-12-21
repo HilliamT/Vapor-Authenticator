@@ -3,6 +3,10 @@ import { getCommunity, getNewCommunity } from "./instance";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
 import { getAuthCode } from "steam-totp";
 
+/**
+ * Attempt a login to see if a user's login details are correct
+ * @param details Login details
+ */
 export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLoginResponse> {
     return await new Promise((resolve) => {
         const community = getNewCommunity();
@@ -74,6 +78,9 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
     })
 }
 
+/**
+ * Tell Steam that this user would like to initiate the 2FA setup process, using Vapor as their authenticator!
+ */
 export async function turnOnTwoFactor(): Promise<any> {
     return await new Promise((resolve) => {
         getCommunity().then(community => {
@@ -94,6 +101,10 @@ export async function turnOnTwoFactor(): Promise<any> {
     });
 }
 
+/**
+ * Finalise 2FA setup process to configure Vapor as their authenticator
+ * @param activationCode SMS activation code received from user input
+ */
 export async function finaliseTwoFactor(activationCode: string): Promise<any>{
     return await new Promise((resolve) => {
         getCommunity().then(community => {
@@ -111,6 +122,10 @@ export async function finaliseTwoFactor(activationCode: string): Promise<any>{
     });
 }
 
+/**
+ * Oh no :(
+ * Tell Steam that this user doesn't wish to use Vapor any more as their authenticator
+ */
 export async function revokeTwoFactor(): Promise<any>{
     return await new Promise((resolve) => {
         getCommunity().then(community => {
@@ -129,6 +144,9 @@ export async function revokeTwoFactor(): Promise<any>{
     });
 }
 
+/**
+ * Generate a 2FA code for Steam Guard
+ */
 export function generateAuthCode() {
     return getAuthCode(getMainAccount().secrets.shared_secret);
 }
