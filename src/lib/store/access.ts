@@ -6,6 +6,17 @@ import { AccountStore, VaporCache, VaporSettings } from "./types";
  */
 
 export function getStore(): VaporCache  {
+    
+    // If user has never used Vapor before, initalise
+    if (store.get("vapor") == null) {
+        setStore({
+            main: null,
+            settings: {},
+            accounts: {},
+            id_to_name: {}
+        });
+    }
+
     return (store.get("vapor") as VaporCache);
 }
 
