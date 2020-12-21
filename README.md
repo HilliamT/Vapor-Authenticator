@@ -163,7 +163,9 @@ The project repository will follow this structure when you are working with it.
 
 - `assets/` - Any visual assets needed for this `README.md` document
 - `build/` - Built files from performing `npm run build` or any command that uses it.
+- `icons/` - Production-ready icons and logos generated from `npm run icon-gen`
 - `node_modules/` - Folder to host your installed node modules for this repository. This is generated after `npm install`.
+- `out/` - Output directory for production build of Vapor. This is created by running `npm run make`
 - `src/` - Source files for this project. The majority of the code you should be making edits to should be inside here.
   - `app/` - All source files related to the content of the Desktop app
     - `screens/` - A set of `React` components that define a top-level non-Root `JSX` components
@@ -177,6 +179,7 @@ The project repository will follow this structure when you are working with it.
   - `preload.ts` - Script for any code with `Node` API access to be ran before loading any of the webpage
 - `.eslintrc` - `ESLint` configuration file to lint your code via `npm run lint`
 - `.gitignore` - File of paths to hide from `Git` tracking
+- `icon.svg` - App Icon
 - `LICENSE` - MIT license
 - `index.html` - Base `.html` page needed by Electron to hoist its code onto
 - `package-lock.json` - Details the versions of each `npm` dependency to install to minimise configuration and installation issues
