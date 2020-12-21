@@ -14,14 +14,6 @@ enum ConfirmationType {
     MarketListing = 3
 }
 
-function populateConfirmation(confirmation: any, identity_secret: string) {
-    return new Promise((resolve) => {
-        confirmation.getOfferID(time(), getConfirmationKey(identity_secret, time()), (err, offerID) => {
-            if (err) return resolve(confirmation);
-            resolve({...confirmation, offerID});
-        });
-    })
-}
 
 export function getAllConfirmations() {
     return new Promise((resolve) => {
@@ -32,10 +24,19 @@ export function getAllConfirmations() {
 
                 // Populate trade confirmations with additional trade information
                 for (const confirmation of confirmations) {
-                    _confirmations.push((confirmation.type == ConfirmationType.Trade) ? await populateConfirmation(confirmation, identitySecret) : confirmation);
+                    _confirmations.push((confirmation.type == ConfirmationType.Trade) ? await _populateConfirmation(confirmation, identitySecret) : confirmation);
                 }
                 resolve(_confirmations);
             });
         });
     });
+}
+
+function _populateConfirmation(confirmation: any, identity_secret: string) {
+    return new Promise((resolve) => {
+        confirmation.getOfferID(time(), getConfirmationKey(identity_secret, time()), (err, offerID) => {
+            if (err) return resolve(confirmation);
+            resolve({...confirmation, offerID});
+        });
+    })
 }
