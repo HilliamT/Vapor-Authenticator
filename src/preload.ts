@@ -66,6 +66,18 @@ contextBridge.exposeInMainWorld("electron", {
     confirmations: {
         getActiveConfirmations: function() {
             return getAllConfirmations();
+        },
+        acceptConfirmation: function(confirmationid) {
+            ipcRenderer.send("acceptConfirmation", {details: getMainAccount(), identitySecret: getMainAccount().secrets.identity_secret, confirmationid});
+            return new Promise((resolve) => {
+                ipcRenderer.on("acceptConfirmationResponse", () => resolve(null));
+            });
+        },
+        cancelConfirmation: function(confirmationid) {
+            ipcRenderer.send("declineConfirmation", {details: getMainAccount(), identitySecret: getMainAccount().secrets.identity_secret, confirmationid});
+            return new Promise((resolve) => {
+                ipcRenderer.on("declineConfirmationResponse", () => resolve(null));
+            });
         }
     },
     window: {

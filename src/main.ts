@@ -1,6 +1,7 @@
 import {app, BrowserWindow, ipcMain } from "electron";
 import * as path from "path";
 import atachSteamWindowFunctions from "./ipc/steam-window";
+import attachConfirmationFunctions from "./ipc/confirmations";
 
 // Create the browser window
 function _createWindow(): void {
@@ -48,3 +49,4 @@ app.on("window-all-closed", () => {
 });
 
 atachSteamWindowFunctions(ipcMain);
+attachConfirmationFunctions(ipcMain);

@@ -27,13 +27,22 @@ export default function Confirmations(props) {
                 No confirmations found
             </div>)
 
-        // TODO: Design resultant confirmation element to allow for one to confirm or cancel a confirmation
         return confirmations.map((conf) => {
-            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex w-full justify-center">
-                <span>{conf.id}</span>
-                <div>{conf.title}</div>
-                <div>{conf.time}</div>
-                {conf.icon != "" && <img src={conf.icon} />}
+            return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex flex-wrap w-full justify-center">
+                <div className="w-full flex">
+                    <div className="h-8">
+                        {conf.icon != "" && <img src={conf.icon} />}
+                    </div>
+                    <div className="ml-3 flex-grow">
+                        <div className="font-bold">{conf.title}</div>
+                        <div>{conf.time}</div>
+                    </div>
+                </div>
+                
+                <div className="w-full flex">
+                    <div className="rounded bg-blue-400 p-2 m-1" onClick={async () => await window["electron"].confirmations.acceptConfirmation(conf.offerID || conf.id)}>Accept</div>
+                    <div className="rounded bg-red-400 p-2 m-1" onClick={async () => await window["electron"].confirmations.cancelConfirmation(conf.offerID || conf.id)}>Cancel</div>
+                </div>
             </div>);
         });
     }
