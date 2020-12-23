@@ -38,9 +38,6 @@
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a>
-      <ul>
-        <li><a href="#project-structure">Project Structure</a></li>
-      </ul>
     </li>
     <li>
     <a href="#roadmap">Contact</a></li>
