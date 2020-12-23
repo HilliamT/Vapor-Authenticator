@@ -1,7 +1,7 @@
 {
   "name": "vapor-authenticator",
   "description": "Desktop Authenticator for Steam for players, traders and gamers to be able to utilise, facilitate and automate Steam from their desktop",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "author": "Mengh.",
   "license": "MIT",
   "main": "build/main.js",
@@ -50,7 +50,10 @@
     "pre-commit": "npm run lint && npm run build",
     "generate-icons": "mkdir -p icons/ && icon-gen -i ./icon.svg -o icons/",
     "package": "NODE_ENV=production electron-forge package",
-    "make": "NODE_ENV=production electron-forge make"
+    "make:macosx": "NODE_ENV=production electron-forge make --platform darwin",
+    "make:linux": "NODE_ENV=production electron-forge make --platform=linux --arch=ia32,x64",
+    "make:windows": "NODE_ENV=production electron-forge make --platform=win32 --arch=ia32,x64",
+    "make": "npm run make:macosx && npm run make:linux && npm run make:windows"
   },
   "repository": {
     "type": "git",
@@ -78,13 +81,14 @@
     "forge": {
       "packagerConfig": {
         "icon": "icons/app",
-        "name": "Vapor"
+        "name": "vapor-authenticator",
+        "executableName": "vapor-authenticator"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "Vapor"
+            "name": "vapor-authenticator"
           }
         },
         {
@@ -92,7 +96,14 @@
         },
         {
           "name": "@electron-forge/maker-deb",
-          "config": {}
+          "config": {
+            "options": {
+              "name": "vapor-authenticator",
+              "description": "Desktop Authenticator for Steam",
+              "productName": "Vapor",
+              "productDescription": "Desktop Authenticator for Steam"
+            }
+          }
         },
         {
           "name": "@electron-forge/maker-rpm",
