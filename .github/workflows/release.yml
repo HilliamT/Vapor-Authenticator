@@ -195,9 +195,12 @@ jobs:
       - name: Listing directories...
         run: ls
 
+      - name: Renaming dmg...
+        run: mv out/make/*.dmg out/make/Vapor.dmg
+
       # Zip files
       - name: Zipping...
-        run: zip -j VaporMacOSX.zip out/make/*.dmg # out/make/PACKAGE_EXECUTABLE_DMG
+        run: zip -j VaporMacOSX.zip out/make/Vapor.dmg # out/make/PACKAGE_EXECUTABLE_DMG
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...
