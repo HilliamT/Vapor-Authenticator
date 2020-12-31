@@ -63,13 +63,13 @@ Because the project is open-source utilising APIs offered by Steam, additional f
   <img src="/assets/VaporGeneralDemo.gif" text-align="center">
 </div>
 
-* Use the app as your main device authenticator!
+* Use the app as your main device authenticator
 * Generate Steam Guard codes to login to different websites using your Steam account
 * Revoke the authenticator with little hassle
 * View and switch between all of your accounts
 * Access proxy Steamcommunity.com web sessions as your other accounts
 * View your Steam profile in a jiffy
-* Login to the app via OAuth using just a previous username
+* Login to the app passwordless via OAuth using just a previous username
 #### `Trading`
 
 <div style="text-align: center;">
@@ -129,9 +129,6 @@ These planned features have been sourced from discussions with users and communi
 * Notify you of new trades via a desktop notification
 * Option to auto-accept all (incoming) trade confirmations
 * Option to auto-accept all (incoming) market confirmations
-
-#### `Meta`
-* GitHub CI/CD Pipeline Setup
 
 ## Contributing
 You can read details on how to contribute [here](https://github.com/HilliamT/vapor-authenticator/blob/master/CONTRIBUTING.md).
