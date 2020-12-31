@@ -4,7 +4,6 @@ name: Production Release
 
 on:
   push:
-    branches: [ master ]
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
@@ -37,7 +36,7 @@ jobs:
     
       # Get commit tag
       - name: Getting current tag...
-        uses: olegtarasov/get-tag@v2
+        uses: dawidd6/action-get-tag@v1
         id: tag_name
 
       # Create draft For Release
