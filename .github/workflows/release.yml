@@ -130,7 +130,7 @@ jobs:
 
       # Zip files
       - name: Zipping...
-        run: zip -j VaporWindows.zip out/make/*/*/* # out/make/OPERATING_SYSTEM/ARCHITECTURE/PACKAGE_EXECUTABLE
+        run: powershell Compress-Archive out/make/squirrel.windows VaporWindows.zip
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...
