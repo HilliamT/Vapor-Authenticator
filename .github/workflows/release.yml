@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# TODO: Parameterise for each Operating System using a template
 
 name: Production Release
 
@@ -96,4 +96,90 @@ jobs:
           upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: ./VaporLinux.zip
           asset_name: Vapor_Linux_${{ needs.prepare-for-release.outputs.tag_name }}.zip
+          asset_content_type: application/zip
+
+  build-for-windows:
+    runs-on: windows-latest
+    needs: prepare-for-release
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Setting up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      # Install any dependencies
+      - name: Installing npm dependencies...
+        run: npm ci
+
+      # Build for Windows
+      - name: Making for Windows systems...
+        run: npm run make:windows
+      
+      # List directories for overview of build output
+      - name: Listing directories...
+        run: ls
+
+      # Zip files
+      - name: Zipping...
+        run: zip -j VaporWindows.zip out/make/*/*/* # out/make/OPERATING_SYSTEM/ARCHITECTURE/PACKAGE_EXECUTABLE
+      
+      # Upload the production-ready executables to the GitHub Release
+      - name: Uploading Release Assets...
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./VaporWindows.zip
+          asset_name: Vapor_Windows_${{ needs.prepare-for-release.outputs.tag_name }}.zip
+          asset_content_type: application/zip
+
+  build-for-macosx:
+    runs-on: macos-latest
+    needs: prepare-for-release
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Set up Node.js
+      - name: Setting up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      # Install any dependencies
+      - name: Installing npm dependencies...
+        run: npm ci
+
+      # Build for MacOSX
+      - name: Making for MacOSX systems...
+        run: npm run make:macosx
+      
+      # List directories for overview of build output
+      - name: Listing directories...
+        run: ls
+
+      # Zip files
+      - name: Zipping...
+        run: zip -j VaporMacOSX.zip out/make/*/*/* # out/make/OPERATING_SYSTEM/ARCHITECTURE/PACKAGE_EXECUTABLE
+      
+      # Upload the production-ready executables to the GitHub Release
+      - name: Uploading Release Assets...
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./VaporMacOSX.zip
+          asset_name: Vapor_MacOSX_${{ needs.prepare-for-release.outputs.tag_name }}.zip
           asset_content_type: application/zip
