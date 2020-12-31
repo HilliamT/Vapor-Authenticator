@@ -173,7 +173,7 @@ jobs:
 
       # Zip files
       - name: Zipping...
-        run: zip -j VaporMacOSX.zip out/make/*/*/* # out/make/OPERATING_SYSTEM/ARCHITECTURE/PACKAGE_EXECUTABLE
+        run: zip -j VaporMacOSX.zip out/make/*.dmg # out/make/PACKAGE_EXECUTABLE_DMG
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...

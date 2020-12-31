@@ -52,7 +52,7 @@
     "package": "NODE_ENV=production electron-forge package",
     "make:macosx": "NODE_ENV=production electron-forge make --platform darwin",
     "make:linux": "NODE_ENV=production electron-forge make --platform=linux --arch=ia32,x64",
-    "make:windows": "NODE_ENV=production electron-forge make --platform=win32 --arch=ia32,x64",
+    "make:windows": "set NODE_ENV=production&& electron-forge make --platform=win32 --arch=ia32,x64",
     "make": "npm run make:macosx && npm run make:linux && npm run make:windows"
   },
   "repository": {
