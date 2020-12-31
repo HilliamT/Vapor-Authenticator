@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       upload_url: ${{ steps.create_draft_release.outputs.upload_url }}
+      tag_name: ${{ steps.tag_name.outputs.tag }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -33,6 +34,11 @@ jobs:
       # Attempt a build to ensure that it can be packaged
       - name: Building...
         run: npm run build
+    
+      # Get commit tag
+      - name: Getting current tag...
+        uses: olegtarasov/get-tag@v2
+        id: tag_name
 
       # Create draft For Release
       - name: Creating GitHub Release Draft...
@@ -41,8 +47,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.tag_name.outputs.tag }}
+          release_name: Release ${{ steps.tag_name.outputs.tag }}
           body: |
             Changes in this Release
             - First Change
@@ -75,7 +81,7 @@ jobs:
 
       # Zip files
       - name: Zipping...
-        run: zip -j VaporLinux${{ github.ref }}.zip out/make
+        run: zip -j VaporLinux${{ needs.prepare-for-release.outputs.tag_name }}.zip ./out/make
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...
@@ -85,6 +91,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./VaporLinux${{ github.ref }}.zip
-          asset_name: Vapor_Linux_${{ github.ref }}.zip
+          asset_path: ./VaporLinux${{ needs.prepare-for-release.outputs.tag_name }}.zip
+          asset_name: Vapor_Linux_${{ needs.prepare-for-release.outputs.tag_name }}.zip
           asset_content_type: application/zip
