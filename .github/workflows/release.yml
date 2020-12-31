@@ -84,7 +84,7 @@ jobs:
 
       # Zip files
       - name: Zipping...
-        run: zip -j VaporLinux.zip out/make
+        run: zip -j VaporLinux.zip out/make/*/*/* # out/make/OPERATING_SYSTEM/ARCHITECTURE/PACKAGE_EXECUTABLE
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...
