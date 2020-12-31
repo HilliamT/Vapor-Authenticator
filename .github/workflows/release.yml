@@ -80,7 +80,7 @@ jobs:
 
       # Zip files
       - name: Zipping...
-        run: zip -j VaporLinux${{ needs.prepare-for-release.outputs.tag_name }}.zip ./out/make
+        run: zip -j VaporLinux.zip out/make
       
       # Upload the production-ready executables to the GitHub Release
       - name: Uploading Release Assets...
@@ -90,6 +90,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./VaporLinux${{ needs.prepare-for-release.outputs.tag_name }}.zip
+          asset_path: ./VaporLinux.zip
           asset_name: Vapor_Linux_${{ needs.prepare-for-release.outputs.tag_name }}.zip
           asset_content_type: application/zip
