@@ -110,7 +110,6 @@ jobs:
           upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: out/make/deb/x64/*.deb
           asset_name: Vapor_Debian_x64_${{ needs.prepare-for-release.outputs.tag_name }}.deb
-          asset_content_type: application/
 
   build-for-windows:
     runs-on: windows-latest
