@@ -77,6 +77,10 @@ jobs:
       # Build for Linux
       - name: Making for Linux systems...
         run: npm run make:linux
+      
+      # List directories for overview of build output
+      - name: Listing directories...
+        run: ls
 
       # Zip files
       - name: Zipping...
