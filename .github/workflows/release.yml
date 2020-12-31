@@ -52,6 +52,9 @@ jobs:
             Changes in this Release
             - First Change
             - Second Change
+            Bug Fixes
+            - First Bug Fix
+            - Second Bug Fix
           draft: true
           prerelease: false
 
