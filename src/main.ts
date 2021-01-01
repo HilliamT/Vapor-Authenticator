@@ -24,7 +24,7 @@ function _createWindow(): void {
     // Load the index.html of the app
     mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
-    // Open the DevTools.
+    // Open the DevTools when not in production.
     if (process.env.NODE_ENV != "production") mainWindow.webContents.openDevTools();
 }
 

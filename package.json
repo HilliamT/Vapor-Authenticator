@@ -10,12 +10,6 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
@@ -25,6 +19,7 @@
     "concurrently": "^5.3.0",
     "css-loader": "^5.0.1",
     "electron": "11.0.3",
+    "electron-builder": "^22.9.1",
     "eslint": "^7.14.0",
     "file-loader": "^6.2.0",
     "icon-gen": "^2.1.0",
@@ -46,13 +41,13 @@
     "watch:electron": "tsc --watch",
     "watch:react": "webpack --config webpack.common.js --watch",
     "watch": "concurrently \"npm run watch:react\" \"npm run bootup\"",
-    "start": "npm run build && electron-forge start",
+    "start": "export NODE_ENV=production&& npm run build && electron .",
     "pre-commit": "npm run lint && npm run build",
-    "generate-icons": "mkdir -p icons/ && icon-gen -i ./icon.svg -o icons/",
-    "package": "NODE_ENV=production electron-forge package",
-    "make:macosx": "NODE_ENV=production electron-forge make --platform darwin",
-    "make:linux": "NODE_ENV=production electron-forge make --platform=linux --arch=ia32,x64",
-    "make:windows": "set NODE_ENV=production&& electron-forge make --platform=win32 --arch=ia32,x64",
+    "generate-icons": "mkdir -p icons/ && icon-gen -i ./icon.svg -o icons/ --icns --icns-name icon --ico --ico-name icon --favicon",
+    "package": "export NODE_ENV=production&& electron-builder --dir",
+    "make:macosx": "export NODE_ENV=production&& electron-builder -m",
+    "make:linux": "export NODE_ENV=production&& electron-builder -l",
+    "make:windows": "export NODE_ENV=production&& electron-builder -w",
     "make": "npm run make:macosx && npm run make:linux && npm run make:windows"
   },
   "repository": {
@@ -67,7 +62,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
-    "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -78,39 +72,19 @@
     "steamcommunity": "^3.42.0",
     "steamid": "^1.1.3"
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "icons/app",
-        "name": "vapor-authenticator",
-        "executableName": "vapor-authenticator"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "vapor-authenticator"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-dmg"
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {
-            "options": {
-              "name": "vapor-authenticator",
-              "description": "Desktop Authenticator for Steam",
-              "productName": "Vapor",
-              "productDescription": "Desktop Authenticator for Steam"
-            }
-          }
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
+  "build": {
+    "productName": "Vapor",
+    "directories": {
+      "buildResources": "icons",
+      "output": "out"
+    },
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {},
+    "linux": {
+      "icon": "icons/icon.icns",
+      "category": "Utility"
     }
   }
 }
