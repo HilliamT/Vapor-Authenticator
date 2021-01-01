@@ -31,8 +31,11 @@ jobs:
         run: npm ci
       
       # Attempt a build to ensure that it can be packaged
-      - name: Building...
-        run: npm run build
+      - name: Build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifact
+          path: build
     
       # Get commit tag
       - name: Getting current tag...
@@ -77,6 +80,12 @@ jobs:
       - name: Installing npm dependencies...
         run: npm ci
 
+      # Pull general project build
+      - name: Pulling intermediate project build...
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+
       # Build for Linux
       - name: Making for Linux systems...
         run: npm run make:linux
@@ -114,6 +123,12 @@ jobs:
       - name: Installing npm dependencies...
         run: npm ci
 
+      # Pull general project build
+      - name: Pulling intermediate project build...
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+
       # Build for Windows
       - name: Making for Windows systems...
         run: npm run make:windows
@@ -150,6 +165,12 @@ jobs:
       # Install any dependencies
       - name: Installing npm dependencies...
         run: npm ci
+
+      # Pull general project build
+      - name: Pulling intermediate project build...
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
 
       # Build for MacOSX
       - name: Making for MacOSX systems...
