@@ -88,6 +88,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifact
+          path: build
 
       # Build for Linux
       - name: Making for Linux systems...
@@ -131,6 +132,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifact
+          path: build
 
       # Build for Windows
       - name: Making for Windows systems...
@@ -174,6 +176,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: build-artifact
+          path: build
 
       # Build for MacOSX
       - name: Making for MacOSX systems...
