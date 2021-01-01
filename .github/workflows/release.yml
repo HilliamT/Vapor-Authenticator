@@ -93,6 +93,8 @@ jobs:
       # Build for Linux
       - name: Making for Linux systems...
         run: npm run make:linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # List directories for overview of build output
       - name: Listing directories...
@@ -137,6 +139,8 @@ jobs:
       # Build for Windows
       - name: Making for Windows systems...
         run: npm run make:windows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # List directories for overview of build output
       - name: Listing directories...
@@ -181,6 +185,8 @@ jobs:
       # Build for MacOSX
       - name: Making for MacOSX systems...
         run: npm run make:macosx
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # List directories for overview of build output
       - name: Listing directories...
