@@ -31,7 +31,10 @@ jobs:
         run: npm ci
       
       # Attempt a build to ensure that it can be packaged
-      - name: Build artifacts
+      - name: Building artifacts...
+        run: npm run build
+
+      - name: Uploading artifacts...
         uses: actions/upload-artifact@v2
         with:
           name: build-artifact
