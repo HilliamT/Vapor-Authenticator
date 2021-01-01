@@ -47,7 +47,7 @@
     "package": "export NODE_ENV=production&& electron-builder --dir",
     "make:macosx": "export NODE_ENV=production&& electron-builder -m",
     "make:linux": "export NODE_ENV=production&& electron-builder -l",
-    "make:windows": "export NODE_ENV=production&& electron-builder -w",
+    "make:windows": "set NODE_ENV=production&& electron-builder -w",
     "make": "npm run make:macosx && npm run make:linux && npm run make:windows"
   },
   "repository": {

@@ -111,7 +111,7 @@ jobs:
           asset_name: Vapor_Linux_${{ needs.prepare-for-release.outputs.tag_name }}.AppImage
 
   build-for-windows:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: prepare-for-release
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -202,3 +202,4 @@ jobs:
           upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: out/*.dmg
           asset_name: Vapor_MacOSX_${{ needs.prepare-for-release.outputs.tag_name }}.dmg
+          asset_content_type: application/dmg
