@@ -90,25 +90,11 @@ jobs:
           name: build-artifact
           path: build
 
-      # Build for Linux
+      # Build for Windows and upload production build to GitHub 
       - name: Making for Linux systems...
         run: npm run make:linux
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # List directories for overview of build output
-      - name: Listing directories...
-        run: ls
-
-      # Uploading AppImage
-      - name: Uploading CentOS/Fedora/RPM-supported x32 Release...
-        uses: shogo82148/actions-upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: out/*.AppImage
-          asset_name: Vapor_Linux_${{ needs.prepare-for-release.outputs.tag_name }}.AppImage
 
   build-for-windows:
     runs-on: windows-latest
@@ -136,25 +122,11 @@ jobs:
           name: build-artifact
           path: build
 
-      # Build for Windows
+      # Build for Windows and upload production build to GitHub 
       - name: Making for Windows systems...
         run: npm run make:windows
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # List directories for overview of build output
-      - name: Listing directories...
-        run: ls
-      
-      # Upload the production-ready executable to the GitHub Release
-      - name: Uploading Window Release Assets...
-        uses: shogo82148/actions-upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: out/*.exe
-          asset_name: Vapor_Windows_${{ needs.prepare-for-release.outputs.tag_name }}.exe
 
   build-for-macosx:
     runs-on: macos-latest
@@ -182,24 +154,8 @@ jobs:
           name: build-artifact
           path: build
 
-      # Build for MacOSX
+      # Build for MacOSX and upload production build to GitHub 
       - name: Making for MacOSX systems...
         run: npm run make:macosx
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      # List directories for overview of build output
-      - name: Listing directories...
-        run: ls
-      
-      # Upload the production-ready dmg to the GitHub Release
-      - name: Uploading Release Assets...
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.prepare-for-release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: out/*.dmg
-          asset_name: Vapor_MacOSX_${{ needs.prepare-for-release.outputs.tag_name }}.dmg
-          asset_content_type: application/dmg
