@@ -41,13 +41,13 @@
     "watch:electron": "tsc --watch",
     "watch:react": "webpack --config webpack.common.js --watch",
     "watch": "concurrently \"npm run watch:react\" \"npm run bootup\"",
-    "start": "export NODE_ENV=production&& npm run build && electron .",
+    "start": "export NODE_ENV=development&& npm run build && electron .",
     "pre-commit": "npm run lint && npm run build",
     "generate-icons": "mkdir -p icons/ && icon-gen -i ./icon.svg -o icons/ --icns --icns-name icon --ico --ico-name icon --favicon",
-    "package": "export NODE_ENV=production&& electron-builder --dir",
-    "make:macosx": "export NODE_ENV=production&& electron-builder -m",
-    "make:linux": "export NODE_ENV=production&& electron-builder -l",
-    "make:windows": "set NODE_ENV=production&& electron-builder -w",
+    "package": "electron-builder --dir",
+    "make:macosx": "electron-builder -m",
+    "make:linux": "electron-builder -l",
+    "make:windows": "electron-builder -w",
     "make": "npm run make:macosx && npm run make:linux && npm run make:windows"
   },
   "repository": {

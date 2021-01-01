@@ -24,8 +24,8 @@ function _createWindow(): void {
     // Load the index.html of the app
     mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
-    // Open the DevTools when not in production.
-    if (process.env.NODE_ENV != "production") mainWindow.webContents.openDevTools();
+    // Open the DevTools when in development.
+    if (process.env.NODE_ENV == "development") mainWindow.webContents.openDevTools();
 }
 
 // Event is shot when Electron is "ready" to create browser windows
