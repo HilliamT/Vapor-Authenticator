@@ -35,9 +35,14 @@ export default function LoginScreen(props) {
                         const details = {accountName, password, captcha};
                         details[authMethod.method] = authMethod.value;
                         const response = await window["electron"].authenticate.tryLogin(details);
-                        ((Object.keys(response).length == 0) ? props.updateUser() : setLoginResponse(response));
+
+                        // Query user for further login information if required
+                        if (Object.keys(response).length != 0) return setLoginResponse(response);
                         
-                        // Redirect user back to main dashboard
+                        // Log user in
+                        props.updateUser();
+
+                        // Redirect user (back) to main dashboard
                         props.setAddNewAccount(false);
                     }}>Login</button>}
                 </div>
