@@ -44,10 +44,13 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
                 resolve({});
             });
         } else {
-
             // If not, divert to using general login method
+
+            // For this, ensure that they have entered both username and password
             if (details.accountName == "" || details.password == "") return resolve({error: SteamLoginErrors.MissingDetails});
 
+            // If we have their shared secret stored on disk, generate mobile auth code to login with
+            if (account.secrets && account.secrets.shared_secret) details.twoFactorCode = getAuthCode(account.secrets.shared_secret);
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
                 // Gracefully handle our error, asking the user to provide more login information
