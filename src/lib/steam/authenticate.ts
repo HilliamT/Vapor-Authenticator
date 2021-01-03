@@ -51,9 +51,11 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
 
             // If we have their shared secret stored on disk, generate mobile auth code to login with
             if (account.secrets && account.secrets.shared_secret) details.twoFactorCode = getAuthCode(account.secrets.shared_secret);
+
+            // Begin login process
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
-                // Gracefully handle our error, asking the user to provide more login information
+                // If we get into an error, gracefully handle it, asking the user to provide more login information if necessary
                 if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
 
                 // Save the user's details on disk for future usage
