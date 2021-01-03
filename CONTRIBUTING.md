@@ -5,10 +5,11 @@ You will need `node` and `npm` to run this project as a developer and build it f
 
 1. Fork this project to your own `Git` account - this will make a personal copy for you to make, commit and push your own edits.
 2. Clone your forked version and run `npm install`. This will install all necessary dependencies, including dev-dependencies, to allow you to build the project alongside install developer tools to make development easier.
+3. Pick a feature (off the roadmap, if you are out of ideas) you will be implementing and make a work-in-progress pull request into the original repository.
 3. Run `npm start` to build and bootup the app to ensure that it is working for you. You can exit using `Ctrl + C` once you have finished testing it.
 4. You can start developing and making edits to your files! You can run `npm run watch` to have Webpack and Typescript listen to your changes as to verify the correctness of your code.
 5. Once done, test your code and then lint it using `npm run lint`.
-6. Once the linter has approved, commit your code and make a pull request to the original repository. A GitHub action will verify that your code is linted against the rules set for the repository as well as check for any build errors.
+6. Once the linter has approved, commit your code and make your pull request ready. A GitHub action will verify that your code is linted against the rules set for the repository as well as check for any build errors.
 
 ### Project Structure
 
