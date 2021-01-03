@@ -110,7 +110,7 @@ There are several tools including `Babel` to compile `TypeScript` into plain `Ja
 
 You can download your system's respective installer (`.exe` for `Windows`, `.dmg` for `MacOSX`, and `.AppImage` for `Linux`) for the latest stable version in [Releases](https://github.com/HilliamT/Vapor-Authenticator/releases).
 
-You can always install the latest version of the application here to replace your current version. Download the installer, delete your shortcut of the application and load the installer.
+You can always install the latest version of the application here to replace your current version. Download the installer, delete your shortcut of the application and load the installer. Unless it is stated explicitly that your previous config file containing account information is incompatible with the latest version (which a converter will be provided for), you will be able to access your accounts as normal after installation.
 
 #### `Development`
 You will need `node` and `npm` to run this project as a developer and build it from source.
