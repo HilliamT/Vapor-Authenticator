@@ -3,6 +3,7 @@ import AuthSetup from "../components/AuthSetup";
 import { HashRouter, Switch, Route, Link } from "react-router-dom";
 import Confirmations from "../components/Confirmations";
 import Home from "../components/Home";
+import getAvatarURL from "../util/avatar";
 
 const CurrentPage = {
     Home: "/",
@@ -86,8 +87,4 @@ export default function BaseScreen(props) {
                 </div>
         </HashRouter>
     </div>);
-}
-
-function getAvatarURL(hash) {
-    return "http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/" + hash?.substr(0, 2) + "/" + hash + "_full.jpg";
 }
