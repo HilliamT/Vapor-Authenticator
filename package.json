@@ -1,7 +1,7 @@
 {
   "name": "vapor-authenticator",
   "description": "Desktop Authenticator for Steam for players, traders and gamers to be able to utilise, facilitate and automate Steam from their desktop",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Mengh.",
   "license": "MIT",
   "main": "build/main.js",
