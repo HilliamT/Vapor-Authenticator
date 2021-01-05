@@ -5,6 +5,8 @@ export default function AuthSetup(props) {
     const [SMSCode, setSMSCode] = useState(""); // Input for user's SMS response
     const [authCode, setAuthCode] = useState("");
     const [seconds, setSeconds] = useState(new Date().getSeconds() % 30);
+    const [authSetupError, setAuthSetupError] = useState(""); // String to hold any errors regarding setting up authenticator
+
     const { setupDesktopAuth, finishDesktopAuth, revokeDesktopAuth, getAuthCode } = window["electron"].authenticate;
 
     // Establish authentication code loop upon context / page switch
@@ -27,19 +29,30 @@ export default function AuthSetup(props) {
         return () => {
             clearInterval(authInterval);
             clearInterval(secondInterval);
+            setAuthSetupError("");
         }
     }, [props.user]);
-    
+
+    function handleSetupAuthResponse({error}) {
+        if (error == "Error 2") return setAuthSetupError("Please add a phone number to this account.");
+        if (error == "Error 29") return setAuthSetupError("There is an authenticator already set up on this account. Please remove it first.");
+        if (error == null) return setReceivedSMS(true);
+        return setAuthSetupError("New error never seen before - reload the application and if this error persists, please make an issue on the GitHub!");
+    }
 
     return (<div className="m-2 flex flex-wrap">
         <div className="mx-4 font-bold text-2xl w-full text-white">Authenticator</div>
 
         {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
         {!props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full"> 
-            {!receivedSMS && <button className="font-bold" onClick={async () => { 
-                const response = await setupDesktopAuth();
-                ((response.error == null) ? setReceivedSMS(true) : "");
+            {!receivedSMS && <button className="font-bold" onClick={async () => {
+                handleSetupAuthResponse(await setupDesktopAuth());
             }}>Setup Authenticator</button>}
+
+            <div className="text-red-400 text-sm">
+                {authSetupError}
+            </div>
+            
 
             {receivedSMS && <div>
                 <div>SMS from Steam sent! <br/> Please enter the code you receive to complete the setup.</div>
