@@ -37,7 +37,7 @@ export default function AuthSetup(props) {
         if (error == "Error 2") return setAuthSetupError("Please add a phone number to this account.");
         if (error == "Error 29") return setAuthSetupError("There is an authenticator already set up on this account. Please remove it first.");
         if (error == null) return setReceivedSMS(true);
-        return setAuthSetupError("New error never seen before - reload the application and if this error persists, please make an issue on the GitHub!");
+        return setAuthSetupError("New error never seen before - reload the application and try again. If this error persists, please make an issue on the GitHub!");
     }
 
     return (<div className="m-2 flex flex-wrap">
