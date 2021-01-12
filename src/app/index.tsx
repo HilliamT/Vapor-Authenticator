@@ -9,7 +9,7 @@ export default function Index() {
 
     // addNewAccount == true if logged-in user is adding new account
     const [addNewAccount, setAddNewAccount] = useState(false);
-    const [switchingAccounts, setSwitchingAccounts] = useState(false);
+    const [switchingAccounts, setSwitchingAccounts] = useState(true);
 
     useEffect(() => {
         updateUser();
@@ -23,6 +23,6 @@ export default function Index() {
         {user && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} className="z-0" />}
 
         {switchingAccounts && !addNewAccount && <AccountScreen user={user} updateUser={updateUser} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} className="z-10" />}
-        {(!user || addNewAccount) && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} updateUser={updateUser} className="z-20" />}
+        {addNewAccount && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} updateUser={updateUser} className="z-20" />}
     </div>)
 }
