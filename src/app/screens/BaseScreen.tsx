@@ -25,7 +25,7 @@ export default function BaseScreen(props) {
                         <img className="h-12 w-12 rounded-full" src={getAvatarURL(props.user.avatarHash)}/>
                         <div className="text-white font-bold text-sm ml-4 align-middle">
                             {props.user.name}<br />
-                            <span className="font-thin text-xs">{props.user.stateMessage}</span>
+                            <span className="font-thin text-xs" dangerouslySetInnerHTML={{__html: props.user.stateMessage}} />
                         </div>
                     </div>
                 </div>
