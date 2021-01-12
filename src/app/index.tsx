@@ -12,7 +12,9 @@ export default function Index() {
     const [switchingAccounts, setSwitchingAccounts] = useState(true);
 
     useEffect(() => {
-        updateUser();
+        window["electron"].setCurrentUser("").then(() => {
+            updateUser();
+        });
     }, []);
 
     async function updateUser() {
