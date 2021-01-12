@@ -22,8 +22,10 @@ export default function AccountScreen(props) {
                     onClick={() => {
                         setSwitchingUser(true);
                         window["electron"].setCurrentUser(account_name).then(() => {
-                            props.updateUser().then(() => setSwitchingUser(false));
-                            props.setSwitchingAccounts(false);
+                            props.updateUser().then(() => {
+                                setSwitchingUser(false);
+                                props.setSwitchingAccounts(false);
+                            });
                         });
                     }}>
 
