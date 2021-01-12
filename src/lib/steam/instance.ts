@@ -8,10 +8,10 @@ let community = new SteamCommunity();
  */
 export function getCommunity(): Promise<any> {
     return new Promise((resolve, reject) => {
-        if (community.steamID == null) return resolve(community);
 
         // See if we are already logged into the current account
         const main = getMainAccount();
+        if (main == null) return resolve(getNewCommunity());
         if (community.oAuthToken == main.oAuthToken) return resolve(community);
 
         // If not, perform an account switch in the community instance.
@@ -51,7 +51,7 @@ export function getCommunity(): Promise<any> {
             });
         } else {
             // Return a normal userless community instance for now 
-            return resolve(community);
+            return resolve(getNewCommunity());
         }
     });
 }
