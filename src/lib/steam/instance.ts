@@ -1,6 +1,7 @@
 import SteamCommunity from "steamcommunity";
 import { editStore, getAccount, getMainAccount, getStore } from "../store/access";
 import SteamID from "steamid";
+import { generateAuthCode } from "./authenticate";
 let community = new SteamCommunity();
 
 /**
@@ -34,13 +35,28 @@ export function getCommunity(): Promise<any> {
 
         } else if (main.password) {
 
-            // They don't have Steam Guard but we can still log them in via password
-            community.login({accountName: getStore().main, password: main.password}, (err, sessionID, cookies, steamguard, oAuthToken) => {
+            // They initially logged into Vapor with a non-2FA account.
+            // This may still be the case, but they may have also added 2FA
+
+            let details = {
+                accountName: getStore().main,
+                password: main.password,
+                twoFactorCode: null
+            };
+            if (main.secrets && main.secrets.shared_secret) details.twoFactorCode = generateAuthCode();
+
+            community.login(details, (err, sessionID, cookies, steamguard, oAuthToken) => {
                 if (err) return reject(err);
 
                 // Update user cookies
                 community.setCookies(cookies);
                 editStore(_store => {
+
+                    // If user has added steamguard to their account, delete their saved password
+                    if (steamguard) delete main.password;
+                    main.steamguard = steamguard;
+
+                    // Update session data
                     main.cookies = cookies;
                     main.oAuthToken = oAuthToken;
                     _store.accounts[_store.main] = main;
