@@ -63,7 +63,11 @@ export default function BaseScreen(props) {
                     }}>Authenticator</div>
                 </Link>
                 <br />
-                <div className="text-sm w-full cursor-pointer" onClick={() => { props.setSwitchingAccounts(true) }}>
+                <div className="text-sm w-full cursor-pointer" onClick={async () => {
+                    await window["electron"].setCurrentUser("");
+                    await props.updateUser();
+                    props.setSwitchingAccounts(true);
+                }}>
                     <div className="font-bold text-gray-400 text-md p-2 pl-4 hover:text-white">Switch Accounts</div>
                 </div>
                 <br />
