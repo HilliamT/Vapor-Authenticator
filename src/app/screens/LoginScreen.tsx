@@ -53,7 +53,10 @@ export default function LoginScreen(props) {
                 </div>
 
                 {/* If a logged-in user is just adding a new account to their authenticator, they can redirect back if they want to stop adding new account */}
-                {props.addNewAccount && <div className="font-bold mt-3 text-xs cursor-pointer text-white" onClick={() => props.setAddNewAccount(false)}>Back</div>}
+                {props.addNewAccount && <div className="font-bold mt-3 text-xs cursor-pointer text-white" onClick={() => {
+                    props.setAddNewAccount(false);
+                    props.setSwitchingAccounts(true);
+                }}>Back</div>}
             </div>
         </div>
     )

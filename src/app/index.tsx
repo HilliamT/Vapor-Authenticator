@@ -23,6 +23,6 @@ export default function Index() {
         {user && <BaseScreen user={user} updateUser={updateUser} setAddNewAccount={setAddNewAccount} setSwitchingAccounts={setSwitchingAccounts} className="z-0" />}
 
         {switchingAccounts && !addNewAccount && <AccountScreen user={user} updateUser={updateUser} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} className="z-10" />}
-        {(!user || addNewAccount) && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setAddNewAccount={setAddNewAccount} updateUser={updateUser} className="z-20" />}
+        {(!user || addNewAccount) && !switchingAccounts && <LoginScreen addNewAccount={addNewAccount} setSwitchingAccounts={setSwitchingAccounts} setAddNewAccount={setAddNewAccount} updateUser={updateUser} className="z-20" />}
     </div>)
 }
