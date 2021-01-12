@@ -10,10 +10,11 @@
 <img src="https://badgen.net/github/tag/hilliamt/vapor-authenticator" />
 <img src="https://badgen.net/github/commits/hilliamt/vapor-authenticator" />
 <img src="https://visitor-badge.laobi.icu/badge?page_id=hilliamt.vapor-authenticator" alt="visitor badge"/>
-<img alt="GitHub forks" src="https://img.shields.io/github/forks/HilliamT/vapor-authenticator">
 <img alt="GitHub stars" src="https://img.shields.io/github/stars/HilliamT/vapor-authenticator">
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/HilliamT/vapor-authenticator/total"> <a href="https://github.com/HilliamT/vapor-authenticator/network"> <img src="https://badgen.net/github/last-commit/hilliamt/vapor-authenticator"> <a href="https://github.com/HilliamT/vapor-authenticator/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/HilliamT/vapor-authenticator"></a>
 
-<a href="https://github.com/HilliamT/vapor-authenticator/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/HilliamT/vapor-authenticator"></a> <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/HilliamT/vapor-authenticator/total"> <a href="https://github.com/HilliamT/vapor-authenticator/network"> <img src="https://badgen.net/github/last-commit/hilliamt/vapor-authenticator"> <a href="https://github.com/HilliamT/vapor-authenticator/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/HilliamT/vapor-authenticator"></a>
+<a href="https://steamcommunity.com/tradeoffer/new/?partner=120816906&token=34_mFXTN"><img src="https://img.shields.io/badge/donate-steam-lightblue" /></a> <a href="https://paypal.me/hilliamt?locale.x=en_GB"><img src="https://img.shields.io/badge/donate-paypal-blue" /></a> <img src="https://img.shields.io/badge/donate LTC-MJA2MeerBaMMhq6SkVuZgfc5rKyPQvaDJ6-silver" />
+
 </div>
 
 
