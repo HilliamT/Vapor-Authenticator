@@ -60,7 +60,6 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
                 // If we get into an error, gracefully handle it, asking the user to provide more login information if necessary
-                if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
                 if (error) {
                     _captchaGID = community._captchaGid;
                     return resolve({ error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain });
