@@ -2,6 +2,7 @@ import { addAccount, editStore, getAccount, getMainAccount, setMainAccount } fro
 import { getCommunity, getNewCommunity } from "./instance";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
 import { getAuthCode } from "steam-totp";
+import fs from "fs";
 
 // Since we use a new instance of SteamCommunity everytime this needs to be stored.
 let _captchaGID = -1;
@@ -113,6 +114,73 @@ export async function turnOnTwoFactor(): Promise<any> {
             });
         });
     });
+}
+
+export async function importTwoFactor(prom: Promise<Electron.OpenDialogReturnValue>): Promise<any> {
+    const files = await prom;
+
+    if (files.canceled) return;
+
+    try {
+        const data: {
+            shared_secret: string;
+            serial_number: string;
+            revocation_code: string;
+            uri: string;
+            server_time: number;
+            account_name: string;
+            token_gid: string;
+            identity_secret: string;
+            secret_1: string;
+            status: number;
+            device_id: string;
+            fully_enrolled: true;
+            Session: {
+                SessionID: string;
+                SteamLogin: string;
+                SteamLoginSecure: string;
+                WebCookie: string;
+                OAuthToken: string;
+                SteamID: string;
+            };
+        } = JSON.parse(
+            //Since js doesn't have enough precision to stre steamid's turn them turn them in to strings
+            (await fs.promises.readFile(files.filePaths[0], "utf-8")).replace(/"SteamID":(\d+)/, '"SteamID":"$1"')
+        );
+        const account = getMainAccount();
+        if (!(data.shared_secret && data.revocation_code && data.identity_secret && typeof data.Session == "object"))
+            return "Invalid maFile";
+        if (data.Session.SteamID !== account.steamid) {
+            return "This maFile belongs to another account";
+        }
+        editStore(_store => {
+            const account = getMainAccount();
+            account.secrets = {
+                account_name: data.account_name,
+                identity_secret: data.identity_secret,
+                revocation_code: data.revocation_code,
+                secret_1: data.secret_1,
+                serial_number: data.serial_number,
+                server_time: data.server_time.toString(),
+                shared_secret: data.shared_secret,
+                status: data.status,
+                //not sure about this one
+                token: "",
+                token_gid: data.token_gid,
+                uri: data.uri,
+            };
+            account.usingVapor = true;
+            _store.accounts[_store.main] = account;
+            return _store;
+        });
+    } catch (err) {
+        switch (err.name) {
+            case "SyntaxError":
+                return "Invalid maFile";
+            default:
+                return "Something went wrong: " + err.toString();
+        }
+    }
 }
 
 /**

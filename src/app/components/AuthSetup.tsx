@@ -6,8 +6,15 @@ export default function AuthSetup(props) {
     const [authCode, setAuthCode] = useState("");
     const [seconds, setSeconds] = useState(new Date().getSeconds() % 30);
     const [authSetupError, setAuthSetupError] = useState(""); // String to hold any errors regarding setting up authenticator
+    const [importAuthError, setImportAuthError] = useState("");
 
-    const { setupDesktopAuth, finishDesktopAuth, revokeDesktopAuth, getAuthCode } = window["electron"].authenticate;
+    const {
+        setupDesktopAuth,
+        finishDesktopAuth,
+        revokeDesktopAuth,
+        getAuthCode,
+        importMaFile,
+    } = window["electron"].authenticate;
 
     // Establish authentication code loop upon context / page switch
     useEffect(() => {
@@ -40,11 +47,22 @@ export default function AuthSetup(props) {
         return setAuthSetupError("New error never seen before - reload the application and try again. If this error persists, please make an issue on the GitHub!");
     }
 
-    return (<div className="m-2 flex flex-wrap">
-        <div className="mx-4 font-bold text-2xl w-full text-white">Authenticator</div>
 
-        {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
-        {!props.user.usingVapor && <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full"> 
+    function handleImportAuthResponse(error: string) {
+        if (error == null) return;
+        setImportAuthError(error);
+        return true;
+    }
+
+    return (
+        <div className="m-2 flex flex-wrap">
+            <div className="mx-4 font-bold text-2xl w-full text-white">
+                Authenticator
+            </div>
+
+            {/* SMS authentication flow whilst a user isn't using Vapor as their authenticator */}
+            {!props.user.usingVapor && <div>
+                <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full">
             {!receivedSMS && <button className="font-bold" onClick={async () => {
                 handleSetupAuthResponse(await setupDesktopAuth());
             }}>Setup Authenticator</button>}
@@ -68,6 +86,20 @@ export default function AuthSetup(props) {
                     }
                 }}>Finish Setup</button>
             </div>}
+            </div>
+                <div className="m-4 mt-2 p-4 rounded bg-white shadow w-full">
+                    <button
+                        className="font-bold"
+                        onClick={async () => {
+                            const s = handleImportAuthResponse(
+                                await importMaFile()
+                            );
+                            if (s == null) props.updateUser();
+                        }}>Import .maFile</button>
+                        <div className="text-red-400 text-sm">
+                            {importAuthError}
+                        </div>
+                    </div>
         </div>}
 
         {/* This user is using Vapor! */}

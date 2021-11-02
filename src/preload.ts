@@ -1,6 +1,6 @@
-import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer, remote } from "electron";
 import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
-import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
+import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor, importTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 import { getMainAccount, setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
@@ -29,6 +29,14 @@ contextBridge.exposeInMainWorld("electron", {
         },
         setupDesktopAuth: function() {
             return turnOnTwoFactor();
+        },
+        importMaFile: function () {
+            return importTwoFactor(
+                remote.dialog.showOpenDialog({
+                    properties: ["openFile"],
+                    filters: [{ name: "SDA", extensions: ["maFile"] }],
+                })
+            );
         },
         finishDesktopAuth: function(activationCode: string) {
             return finaliseTwoFactor(activationCode);
