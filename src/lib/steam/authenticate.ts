@@ -3,6 +3,8 @@ import { getCommunity, getNewCommunity } from "./instance";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./types";
 import { getAuthCode } from "steam-totp";
 
+// Since we use a new instance of SteamCommunity everytime this needs to be stored.
+let _captchaGID = -1;
 /**
  * Attempt a login to see if a user's login details are correct
  * @param details Login details
@@ -53,11 +55,16 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
             if (account && account.secrets && account.secrets.shared_secret)
                 details.twoFactorCode = getAuthCode(account.secrets.shared_secret);
 
+            community._captchaGid = _captchaGID;
             // Begin login process
             community.login(details, (error, sessionID, cookies, steamguard, oAuthToken) => {
 
                 // If we get into an error, gracefully handle it, asking the user to provide more login information if necessary
                 if (error) return resolve({error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain});
+                if (error) {
+                    _captchaGID = community._captchaGid;
+                    return resolve({ error: error.message, captchaurl: error.captchaurl, emaildomain: error.emaildomain });
+                }
 
                 // Save the user's details on disk for future usage
                 if (getAccount(details.accountName) == null) {
@@ -78,6 +85,8 @@ export async function attemptLogin(details: SteamLoginDetails): Promise<SteamLog
                 community.oAuthToken = oAuthToken;
                 setMainAccount(details.accountName);
 
+                //Set captcha gid back to -1
+                _captchaGID = -1;
                 resolve({});
             });
         }
