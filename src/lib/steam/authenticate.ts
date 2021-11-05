@@ -230,5 +230,5 @@ export async function revokeTwoFactor(): Promise<any>{
  * Generate a 2FA code for Steam Guard
  */
 export function generateAuthCode() {
-    return getAuthCode(getMainAccount().secrets.shared_secret);
+    return getAuthCode(getMainAccount()?.secrets?.shared_secret);
 }
