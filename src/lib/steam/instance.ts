@@ -12,7 +12,7 @@ export function getCommunity(): Promise<any> {
 
         // See if we are already logged into the current account
         const main = getMainAccount();
-        if (main == null) return resolve(getNewCommunity());
+        if (!main) return resolve(getNewCommunity());
         if (community.oAuthToken == main.oAuthToken) return resolve(community);
 
         // If not, perform an account switch in the community instance.
