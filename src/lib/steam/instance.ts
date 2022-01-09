@@ -38,7 +38,7 @@ export function getCommunity(): Promise<any> {
             // They initially logged into Vapor with a non-2FA account.
             // This may still be the case, but they may have also added 2FA
 
-            let details = {
+            const details = {
                 accountName: getStore().main,
                 password: main.password,
                 twoFactorCode: null
