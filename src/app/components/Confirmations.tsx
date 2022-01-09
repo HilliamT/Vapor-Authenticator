@@ -45,7 +45,7 @@ export default function Confirmations(props) {
                         <div key={i} className={`rounded bg-${i?"red":"blue"}-400 p-2 m-1 cursor-pointer`} onClick={
                             async () => await window["electron"].confirmations.actOnConfirmation(!i, conf.id, conf.key)
                                 .then(()=>setConfirmations(confirmations.filter(f => f.id!==conf.id)))
-                                .catch(err => setConfirmationError({ id: conf.id, error: err.message.replace(/(Error:\ )|(Uncaught\ )/g, "").trim() }))
+                                .catch(err => setConfirmationError({ id: conf.id, error: err.message.replace(/(Error: )|(Uncaught )/g, "").trim() }))
                        }>{action}</div>
                     ))}
                 </div>
