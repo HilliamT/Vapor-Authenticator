@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 export default function Confirmations(props) {
     const [confirmations, setConfirmations] = useState([]);
 
+    const [confirmationError, setConfirmationError] = useState({} as {id:string,error:string});
     useEffect(() => {
         if (!props.user.usingVapor) return;
 
@@ -40,9 +41,16 @@ export default function Confirmations(props) {
                 </div>
                 
                 <div className="w-full flex">
-                    <div className="rounded bg-blue-400 p-2 m-1" onClick={async () => await window["electron"].confirmations.acceptConfirmation(conf.offerID || conf.id)}>Accept</div>
-                    <div className="rounded bg-red-400 p-2 m-1" onClick={async () => await window["electron"].confirmations.cancelConfirmation(conf.offerID || conf.id)}>Cancel</div>
+                    {["Accept", "Cancel"].map((action,i) => (
+                        <div key={i} className={`rounded bg-${i?"red":"blue"}-400 p-2 m-1 cursor-pointer`} onClick={
+                            async () => await window["electron"].confirmations.actOnConfirmation(!i, conf.id, conf.key)
+                                .then(()=>setConfirmations(confirmations.filter(f => f.id!==conf.id)))
+                                .catch(err => setConfirmationError({ id: conf.id, error: err.message.replace(/(Error:\ )|(Uncaught\ )/g, "").trim() }))
+                       }>{action}</div>
+                    ))}
                 </div>
+                {confirmationError && confirmationError.id === conf.id &&
+                    <p className="text-red-400 text-sm w-full text-left">&nbsp;{confirmationError.error}</p>}
             </div>);
         });
     }

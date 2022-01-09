@@ -1,6 +1,6 @@
-import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer, remote } from "electron";
 import { getCommunity, getSteamUser, getStoredSteamUsers } from "./lib/steam/instance";
-import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor } from "./lib/steam/authenticate";
+import { attemptLogin, finaliseTwoFactor, generateAuthCode, revokeTwoFactor, turnOnTwoFactor, importTwoFactor } from "./lib/steam/authenticate";
 import { SteamLoginDetails, SteamLoginErrors, SteamLoginResponse } from "./lib/steam/types";
 import { getMainAccount, setMainAccount } from "./lib/store/access";
 import { acceptOffer, declineOffer, getActiveIncomingOffers, getTradeOfferManager } from "./lib/steam/trade-manager";
@@ -11,6 +11,8 @@ contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
     setCurrentUser: async function(account_name) {
         setMainAccount(account_name);
+        // if the account is null or "" | which is unset don't try to get a community instance it'll just create "":{...prevMainAccount} in the config
+        if (!account_name) return;
         await getCommunity(); // Update community instance
         await getTradeOfferManager(); // Update trade offer manager instance
         await getCurrentSteamUser();
@@ -29,6 +31,14 @@ contextBridge.exposeInMainWorld("electron", {
         },
         setupDesktopAuth: function() {
             return turnOnTwoFactor();
+        },
+        importMaFile: function () {
+            return importTwoFactor(
+                remote.dialog.showOpenDialog({
+                    properties: ["openFile"],
+                    filters: [{ name: "SDA", extensions: ["maFile"] }],
+                })
+            );
         },
         finishDesktopAuth: function(activationCode: string) {
             return finaliseTwoFactor(activationCode);
@@ -67,18 +77,15 @@ contextBridge.exposeInMainWorld("electron", {
         getActiveConfirmations: function() {
             return getAllConfirmations();
         },
-        acceptConfirmation: function(confirmationid) {
-            ipcRenderer.send("acceptConfirmation", {details: getMainAccount(), identitySecret: getMainAccount().secrets.identity_secret, confirmationid});
-            return new Promise((resolve) => {
-                ipcRenderer.on("acceptConfirmationResponse", () => resolve(null));
+        /*
+            If ipcRenderer responses return something other than null that means it's an error
+        */
+        actOnConfirmation: function (accept, confirmationid, confirmationKey) {
+            ipcRenderer.send("actOnConfirmation", {details: getMainAccount(), identitySecret: getMainAccount().secrets.identity_secret, accept, confirmationid, confirmationKey});
+            return new Promise((resolve,reject) => {
+                ipcRenderer.once("actOnConfirmationResponse", (_, err) => err ? reject(err) : resolve(null));
             });
         },
-        cancelConfirmation: function(confirmationid) {
-            ipcRenderer.send("declineConfirmation", {details: getMainAccount(), identitySecret: getMainAccount().secrets.identity_secret, confirmationid});
-            return new Promise((resolve) => {
-                ipcRenderer.on("declineConfirmationResponse", () => resolve(null));
-            });
-        }
     },
     window: {
         close: function() {
