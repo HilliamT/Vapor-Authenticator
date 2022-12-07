@@ -17,7 +17,14 @@ export function getStore(): VaporCache  {
         });
     }
 
-    return (store.get("vapor") as VaporCache);
+    // Previous versions had a bug where a copy of an account would
+    // be created with the name "" (empty string), delete this if it
+    // exists
+    const vaporCache: VaporCache = store.get("vapor") as VaporCache;
+
+    if ("" in vaporCache.accounts) delete vaporCache.accounts[""];
+
+    return vaporCache;
 }
 
 export function setStore(newStore: VaporCache): void {
