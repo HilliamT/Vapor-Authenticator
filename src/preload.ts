@@ -10,9 +10,9 @@ import { getCurrentSteamUser, playGames } from "./lib/steam/user-instance";
 contextBridge.exposeInMainWorld("electron", {
     steamLoginErrors: SteamLoginErrors,
     setCurrentUser: async function(account_name) {
-        setMainAccount(account_name);
         // if the account is null or "" | which is unset don't try to get a community instance it'll just create "":{...prevMainAccount} in the config
         if (!account_name) return;
+        setMainAccount(account_name);
         await getCommunity(); // Update community instance
         await getTradeOfferManager(); // Update trade offer manager instance
         await getCurrentSteamUser();
