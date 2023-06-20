@@ -187,21 +187,20 @@ export async function importTwoFactor(prom: Promise<Electron.OpenDialogReturnVal
  * Finalise 2FA setup process to configure Vapor as their authenticator
  * @param activationCode SMS activation code received from user input
  */
-export async function finaliseTwoFactor(activationCode: string): Promise<any>{
-    return await new Promise((resolve) => {
-        getCommunity().then(community => {
-            community.finalizeTwoFactor(getMainAccount().secrets.shared_secret, activationCode, (err) => {
-                if (err) return resolve({error: err.message});
+return await new Promise((resolve) => {
+    getCommunity().then(community => {
+        community.finalizeTwoFactor(getMainAccount().secrets.shared_secret, activationCode, (err: Error | null) => {
+            if (err) return resolve({error: err.message});
 
-                // User is using Vapor as their Steam authenticator
-                editStore(_store => {
-                    _store.accounts[_store.main].usingVapor = true;
-                    return _store;
-                });
-                resolve({});
+            // User is using Vapor as their Steam authenticator
+            editStore(_store => {
+                _store.accounts[_store.main].usingVapor = true;
+                return _store;
             });
+            resolve({});
         });
     });
+});
 }
 
 /**
@@ -211,13 +210,12 @@ export async function finaliseTwoFactor(activationCode: string): Promise<any>{
 export async function revokeTwoFactor(): Promise<any>{
     return await new Promise((resolve) => {
         getCommunity().then(community => {
-            community.disableTwoFactor(getMainAccount().secrets.revocation_code, (err) => {
+            community.disableTwoFactor(getMainAccount().secrets.revocation_code, (err: Error | null) => {
                 if (err) return resolve({error: err.message});
-                
-                // User is no longer using Vapor as their authenticator - secrets are no longer applicable
+
+                // User is no longer using two-factor authentication
                 editStore(_store => {
                     _store.accounts[_store.main].usingVapor = false;
-                    delete _store.accounts[_store.main].secrets;
                     return _store;
                 });
                 resolve({});
