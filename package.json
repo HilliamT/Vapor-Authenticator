@@ -72,7 +72,7 @@
     "steam-totp": "^1.5.0",
     "steam-tradeoffer-manager": "^2.10.2",
     "steam-user": "^4.18.0",
-    "steamcommunity": "^3.42.0",
+    "steamcommunity": "^3.46.1",
     "steamid": "^1.1.3"
   },
   "build": {
