@@ -31,8 +31,8 @@ export default function Confirmations(props) {
         return confirmations.map((conf) => {
             return (<div className="m-4 mt-2 p-4 rounded bg-white shadow flex flex-wrap w-full justify-center">
                 <div className="w-full flex">
-                    <div className="h-8">
-                        {conf.icon != "" && <img src={conf.icon} />}
+                    <div className="h-12">
+                        {conf.icon != "" && <img className="h-12 w-12" src={conf.icon} />}
                     </div>
                     <div className="ml-3 flex-grow">
                         <div className="font-bold">{conf.title}</div>
